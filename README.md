@@ -5,12 +5,13 @@ Landing pages, quizzes e páginas de obrigado do funil do Lucas Miguel
 e integração com Apps Script + Make por cidade.
 
 - **Deploy automático** por GitHub Actions no push em `main` → VPS Hostinger.
-- Toda a lógica de deploy está em [`DEPLOY.md`](DEPLOY.md).
+- Toda a lógica de deploy e setup do VPS está em [`DEPLOY.md`](DEPLOY.md).
+- Script único de provisionamento do VPS em [`scripts/setup-vps.sh`](scripts/setup-vps.sh).
 
 ## Estrutura
 
 ```
-Sites/                     # deployado para /opt/lucas-miguel/html na VPS
+Sites/                     # deployado para /var/www/lucas-miguel no VPS
 ├── assets/img/            # imagens compartilhadas
 ├── cidades/{cidade}/      # LP por cidade
 ├── cidades-obg/{cidade}/  # obrigado por cidade
