@@ -1,52 +1,80 @@
-name: Deploy to VPS
+name: Deploy -> VPS Hostinger
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - 'Sites/**'
+      - 'ops/**'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 concurrency:
-  group: deploy-vps
+  group: deploy-vps-hostinger
   cancel-in-progress: false
 
 jobs:
   deploy:
-    name: Rsync Sites/ to VPS
+    name: rsync -> VPS
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      DEPLOY_PATH: ${{ secrets.VPS_PATH }}
+      PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+      VPS_PORT: ${{ secrets.VPS_PORT }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup SSH key
+      - name: Configure SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "${{ secrets.SSH_PORT }}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+          SSH_PORT="${VPS_PORT:-22}"
+          ssh-keyscan -p "$SSH_PORT" -H "${{ secrets.VPS_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Rsync Sites/ to VPS
+      - name: Sync app files
         run: |
-          rsync -avz --delete \
-            --exclude '.DS_Store' \
-            --exclude '*.swp' \
-            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=accept-new" \
+          SSH_PORT="${VPS_PORT:-22}"
+          DEPLOY_PATH="${DEPLOY_PATH:-/opt/lucas-miguel}"
+
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
+            "mkdir -p '$DEPLOY_PATH/html'"
+
+          rsync -az --delete \
+            --exclude='.DS_Store' \
+            --exclude='*.swp' \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT" \
             ./Sites/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:$DEPLOY_PATH/html/"
 
-      - name: Fix permissions and reload nginx
+          rsync -az \
+            --exclude='.DS_Store' \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT" \
+            ./ops/ \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:$DEPLOY_PATH/"
+
+      - name: Restart stack
         run: |
-          ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} \
-            -o StrictHostKeyChecking=accept-new \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "chown -R www-data:www-data ${{ secrets.DEPLOY_PATH }} && \
-             find ${{ secrets.DEPLOY_PATH }} -type d -exec chmod 755 {} \; && \
-             find ${{ secrets.DEPLOY_PATH }} -type f -exec chmod 644 {} \; && \
-             nginx -t && systemctl reload nginx"
+          SSH_PORT="${VPS_PORT:-22}"
+          DEPLOY_PATH="${DEPLOY_PATH:-/opt/lucas-miguel}"
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
+            "cd '$DEPLOY_PATH' && docker compose up -d --build"
 
-      - name: Cleanup
-        if: always()
-        run: rm -f ~/.ssh/deploy_key
+      - name: Validate deploy
+        run: |
+          PUBLIC_URL="${PUBLIC_URL:-https://lp.liberdadeoperacional.com.br/cidades/indaiatuba/}"
+          sleep 5
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$PUBLIC_URL?v=${{ github.run_id }}" --max-time 20)
+          echo "HTTP status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "Deploy validation failed: $PUBLIC_URL returned HTTP $STATUS"
+            exit 1
+          fi
+          echo "Deploy OK"
