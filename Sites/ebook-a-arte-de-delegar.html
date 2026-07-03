@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Arte de Delegar — Lucas Miguel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold-light: #EED8A2;
+      --gold-medium: #E5C076;
+      --gold-dark: #AF864C;
+      --black-deep: #0F0F0F;
+      --black-soft: #1C1C1C;
+      --graphite: #242424;
+      --white: #FFFFFF;
+      --gray-light: #F4F4F4;
+      --off-white: #F9F9F9;
+      --cta-green: #34A43E;
+      --red: #DA0505;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Sora", sans-serif;
+      color: var(--graphite);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    /* ===== PAGE STRUCTURE ===== */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 64px;
+    }
+
+    .page-break {
+      page-break-before: always;
+      border-top: 1px solid #eee;
+      margin-top: 56px;
+      padding-top: 56px;
+    }
+
+    @media print {
+      .page-break { border: none; margin: 0; padding: 60px 64px 0; }
+    }
+
+    /* ===== COVER ===== */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: var(--black-deep);
+      color: var(--white);
+      text-align: center;
+      padding: 80px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(238,216,162,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cover-logo {
+      width: 180px;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-eyebrow {
+      display: inline-block;
+      padding: 8px 20px;
+      border: 1px solid rgba(238,216,162,0.3);
+      border-radius: 100px;
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-title {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      color: var(--white);
+    }
+
+    .cover-title span { color: var(--gold-light); }
+
+    .cover-subtitle {
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      line-height: 1.5;
+      margin-bottom: 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-author {
+      font-size: 14px;
+      color: var(--gold-light);
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--gold-light);
+      margin: 16px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-brand {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1 {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--black-deep);
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      color: var(--black-deep);
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-top: 36px;
+      margin-bottom: 12px;
+      color: var(--black-deep);
+    }
+
+    h1 span, h2 span { color: var(--gold-dark); }
+
+    p { margin-bottom: 16px; }
+
+    strong { color: var(--black-deep); font-weight: 700; }
+
+    /* ===== CHAPTER HEADER ===== */
+    .chapter-header {
+      background: var(--black-deep);
+      color: var(--white);
+      padding: 56px 64px;
+      margin: -60px -64px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chapter-header::before {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(238,216,162,0.1) 0%, transparent 70%);
+    }
+
+    .chapter-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: var(--gold-light);
+      color: var(--black-deep);
+      font-size: 20px;
+      font-weight: 800;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .chapter-title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0 0 8px;
+      color: var(--white);
+    }
+
+    .chapter-subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+      margin: 0;
+    }
+
+    /* ===== CALLOUT BOXES ===== */
+    .callout {
+      padding: 24px 28px;
+      border-radius: 12px;
+      margin: 28px 0;
+    }
+
+    .callout-gold {
+      background: rgba(238,216,162,0.1);
+      border-left: 4px solid var(--gold-medium);
+    }
+
+    .callout-gold p { color: var(--gold-dark); font-weight: 600; margin: 0; }
+
+    .callout-action {
+      background: rgba(52,164,62,0.06);
+      border-left: 4px solid var(--cta-green);
+    }
+
+    .callout-action p { margin: 0; }
+    .callout-action .callout-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--cta-green);
+      margin-bottom: 8px;
+    }
+
+    .callout-warning {
+      background: rgba(218,5,5,0.04);
+      border-left: 4px solid var(--red);
+    }
+
+    .callout-warning p { margin: 0; }
+
+    .callout-dark {
+      background: var(--black-deep);
+      color: var(--white);
+      border-left: 4px solid var(--gold-light);
+    }
+
+    .callout-dark p { color: rgba(255,255,255,0.8); margin: 0; }
+    .callout-dark strong { color: var(--gold-light); }
+
+    /* ===== LISTS ===== */
+    ul, ol {
+      margin: 16px 0 24px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    ul li, ol li {
+      padding: 8px 0;
+      padding-left: 32px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      background: var(--gold-medium);
+      border-radius: 50%;
+    }
+
+    ol { counter-reset: steps; }
+    ol li { counter-increment: steps; }
+    ol li::before {
+      content: counter(steps);
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 24px;
+      height: 24px;
+      background: var(--gold-light);
+      color: var(--black-deep);
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== TABLES ===== */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+
+    .matrix-table th {
+      background: var(--black-deep);
+      color: var(--white);
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .matrix-table th:first-child { border-radius: 8px 0 0 0; }
+    .matrix-table th:last-child { border-radius: 0 8px 0 0; }
+
+    .matrix-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    .matrix-table tr:nth-child(even) td { background: var(--off-white); }
+
+    .matrix-table .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .tag-green { background: rgba(52,164,62,0.1); color: var(--cta-green); }
+    .tag-gold { background: rgba(238,216,162,0.2); color: var(--gold-dark); }
+    .tag-red { background: rgba(218,5,5,0.08); color: var(--red); }
+
+    /* ===== STEP BOX ===== */
+    .step-box {
+      background: var(--off-white);
+      border-radius: 12px;
+      padding: 28px;
+      margin: 24px 0;
+    }
+
+    .step-box-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .step-box-number {
+      width: 36px;
+      height: 36px;
+      background: var(--gold-light);
+      color: var(--black-deep);
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-box-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--black-deep);
+    }
+
+    .step-box p { margin: 0 0 8px; font-size: 14px; }
+    .step-box p:last-child { margin-bottom: 0; }
+
+    /* ===== EXAMPLE BOX ===== */
+    .example {
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    .example-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+    }
+
+    .example-bad { border-left: 3px solid var(--red); }
+    .example-good { border-left: 3px solid var(--cta-green); }
+
+    /* ===== CHECKLIST ===== */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .checklist li {
+      padding: 12px 0 12px 36px;
+      position: relative;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 6px;
+      top: 12px;
+      font-size: 16px;
+      color: var(--gold-medium);
+      background: none;
+      width: auto;
+      height: auto;
+      border-radius: 0;
+    }
+
+    /* ===== FORMULA ===== */
+    .formula {
+      background: var(--black-deep);
+      color: var(--white);
+      border-radius: 12px;
+      padding: 28px;
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .formula-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+
+    .formula-content {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1.4;
+    }
+
+    .formula-content span { color: var(--white); font-weight: 400; font-size: 18px; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--gold-light);
+      border-radius: 2px;
+      margin: 40px 0;
+    }
+
+    /* ===== TOC ===== */
+    .toc {
+      list-style: none;
+      padding: 0;
+      margin: 32px 0;
+    }
+
+    .toc li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black-deep);
+    }
+
+    .toc li::before { display: none; }
+
+    .toc-number {
+      width: 40px;
+      height: 40px;
+      background: var(--gold-light);
+      color: var(--black-deep);
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .toc-desc {
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      background: var(--black-deep);
+      color: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin: 48px 0;
+    }
+
+    .cta-banner h2 {
+      color: var(--white);
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    .cta-banner h2 span { color: var(--gold-light); }
+
+    .cta-banner p {
+      color: rgba(255,255,255,0.55);
+      max-width: 440px;
+      margin: 0 auto 24px;
+      font-size: 15px;
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 16px 36px;
+      background: var(--gold-light);
+      color: var(--black-deep);
+      font-weight: 700;
+      border-radius: 100px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      .page { padding: 40px 28px; }
+      .chapter-header { padding: 40px 28px; margin: -40px -28px 36px; }
+      .cover { padding: 60px 28px; }
+      .cover-title { font-size: 34px; }
+      h1 { font-size: 28px; }
+      h2 { font-size: 22px; }
+      .matrix-table { font-size: 12px; }
+      .matrix-table th, .matrix-table td { padding: 10px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== CAPA ==================== -->
+  <section class="cover">
+    <img class="cover-logo" src="https://files.greatpages.com.br/arquivos/paginas_editor/422504-daa2749ee3d018920dc536e209f40054.svg" alt="Liberdade Operacional">
+    <span class="cover-eyebrow">Ebook Exclusivo</span>
+    <h1 class="cover-title">A Arte de <span>Delegar</span></h1>
+    <p class="cover-subtitle">O Metodo de 5 Passos Para Tirar Sua Empresa das Suas Costas e Construir Uma Operacao Que Funciona Sem Voce</p>
+    <p class="cover-author">Lucas Miguel</p>
+    <div class="cover-divider"></div>
+    <p class="cover-brand">Liberdade Operacional</p>
+  </section>
+
+  <!-- ==================== SUMARIO ==================== -->
+  <div class="page">
+    <h1>Sumario</h1>
+    <p>Este ebook foi estruturado para voce ler, entender e aplicar — nessa ordem. Cada capitulo termina com uma acao pratica. Ao final, voce tera um sistema completo de delegacao pronto para usar na segunda-feira.</p>
+
+    <ul class="toc">
+      <li>
+        <span class="toc-number">01</span>
+        <div>O Erro #1 da Delegacao<span class="toc-desc">Por que voce delega e o resultado nunca vem do jeito certo</span></div>
+      </li>
+      <li>
+        <span class="toc-number">02</span>
+        <div>O Metodo de 5 Passos<span class="toc-desc">O framework completo para delegar com clareza e resultado</span></div>
+      </li>
+      <li>
+        <span class="toc-number">03</span>
+        <div>A Matriz de Delegacao<span class="toc-desc">O que delegar, para quem e quando — sem achismo</span></div>
+      </li>
+      <li>
+        <span class="toc-number">04</span>
+        <div>Delegar Nao e Delargar<span class="toc-desc">Como acompanhar sem fazer microgestao</span></div>
+      </li>
+      <li>
+        <span class="toc-number">05</span>
+        <div>A Empresa Autogerenciavel<span class="toc-desc">O caminho para uma operacao que roda sem voce</span></div>
+      </li>
+      <li>
+        <span class="toc-number">+</span>
+        <div>Checklist Pratico<span class="toc-desc">Template para aplicar o metodo ainda esta semana</span></div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ==================== INTRODUCAO ==================== -->
+  <div class="page page-break">
+    <h1>Antes de comecar</h1>
+    <div class="divider"></div>
+
+    <p>Se voce esta lendo este ebook, existe uma chance real de que voce vive uma das seguintes situacoes:</p>
+
+    <ul>
+      <li>Trabalha mais do que qualquer pessoa da sua equipe</li>
+      <li>Sente que se sair por uma semana, tudo desmorona</li>
+      <li>Ja tentou delegar e o resultado veio tao errado que pensou: "mais facil eu mesmo fazer"</li>
+      <li>Tem uma equipe, mas ela parece depender de voce para tudo</li>
+    </ul>
+
+    <p>Eu sei porque ja vivi isso. E porque ja mentorei centenas de empresarios que viviam exatamente a mesma coisa.</p>
+
+    <p>A verdade e que <strong>o problema nao esta na sua equipe</strong>. O problema esta no metodo — ou, na maioria dos casos, na falta de um.</p>
+
+    <p>A maioria dos empresarios nunca aprendeu a delegar. Aprendeu a fazer. Aprendeu a resolver. Aprendeu a dar conta. E quando o negocio cresceu, continuou fazendo tudo do mesmo jeito — so que agora com mais gente ao redor esperando ordens.</p>
+
+    <div class="callout callout-gold">
+      <p>Delegar nao e tirar uma tarefa do seu prato e jogar no prato de outra pessoa. Delegar e transferir responsabilidade com clareza, contexto e acompanhamento.</p>
+    </div>
+
+    <p>Nos proximos capitulos, voce vai aprender exatamente como fazer isso. Sem teoria vazia. Sem frases motivacionais. Com um metodo que voce consegue aplicar ja na proxima segunda-feira.</p>
+
+    <p>Vamos la.</p>
+  </div>
+
+  <!-- ==================== CAPITULO 1 ==================== -->
+  <div class="page page-break">
+    <div class="chapter-header">
+      <span class="chapter-number">01</span>
+      <h2 class="chapter-title">O Erro #1 da Delegacao</h2>
+      <p class="chapter-subtitle">Por que voce delega e o resultado nunca vem do jeito certo</p>
+    </div>
+
+    <p>Existe um padrao que se repete em praticamente todas as empresas que mentoro. O empresario chega e diz:</p>
+
+    <p><em>"Ja tentei delegar, mas ninguem faz do jeito certo."</em></p>
+
+    <p>Quando eu pergunto como ele delegou, a resposta e quase sempre a mesma: <strong>ele transferiu a tarefa, mas nao transferiu o contexto.</strong></p>
+
+    <h3>O que acontece na pratica</h3>
+
+    <p>O empresario esta sobrecarregado. Tem 30 coisas para resolver. Chama o colaborador e diz algo como:</p>
+
+    <div class="example example-bad">
+      <p class="example-label">Como a maioria delega</p>
+      <p>"Fulano, preciso que voce cuide daquele orcamento do cliente X. Resolve la."</p>
+    </div>
+
+    <p>O colaborador nao sabe qual e o historico do cliente. Nao sabe qual margem aplicar. Nao sabe se o prazo e urgente. Nao sabe qual e o padrao de qualidade esperado. Ele tenta adivinhar — e erra.</p>
+
+    <p>O empresario recebe o resultado, fica frustrado e pensa: <strong>"Mais rapido eu fazer sozinho."</strong></p>
+
+    <p>E volta a centralizar tudo.</p>
+
+    <h3>O erro nao e delegar. O erro e <span style="color:var(--red)">despachar</span>.</h3>
+
+    <p>Existe uma diferenca enorme entre <strong>delegar</strong> e <strong>despachar</strong>:</p>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Despachar</th>
+          <th>Delegar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Resolve la"</td>
+          <td>"O objetivo e X, o padrao e Y, o prazo e Z"</td>
+        </tr>
+        <tr>
+          <td>Transfere a tarefa</td>
+          <td>Transfere a responsabilidade + contexto</td>
+        </tr>
+        <tr>
+          <td>Espera telepata</td>
+          <td>Define o resultado esperado</td>
+        </tr>
+        <tr>
+          <td>Cobra depois que deu errado</td>
+          <td>Alinha antes de comecar</td>
+        </tr>
+        <tr>
+          <td>Gera retrabalho</td>
+          <td>Gera autonomia</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-dark">
+      <p><strong>Regra de ouro:</strong> se voce gastou menos de 5 minutos explicando uma tarefa que leva mais de 1 hora para executar, voce nao delegou — voce despachou.</p>
+    </div>
+
+    <h3>O custo invisivel de despachar</h3>
+
+    <p>Toda vez que voce despacha em vez de delegar, tres coisas acontecem:</p>
+
+    <ol>
+      <li><strong>Retrabalho:</strong> voce ou o colaborador vai precisar refazer. Tempo perdido em dobro.</li>
+      <li><strong>Desmoralizacao:</strong> o colaborador sente que nunca acerta. Para de se esforcar. Vira um "cumpridor de ordens" passivo.</li>
+      <li><strong>Centralizacao:</strong> voce conclui que "ninguem faz direito" e puxa tudo de volta. O ciclo recomeça.</li>
+    </ol>
+
+    <div class="formula">
+      <p class="formula-label">O ciclo vicioso</p>
+      <p class="formula-content">Despacha <span>→</span> Resultado ruim <span>→</span> Centraliza <span>→</span> Sobrecarga <span>→</span> Despacha de novo</p>
+    </div>
+
+    <p>A boa noticia e que quebrar esse ciclo nao exige uma equipe perfeita. Exige um metodo.</p>
+
+    <p>E e exatamente isso que voce vai aprender no proximo capitulo.</p>
+
+    <div class="callout callout-action">
+      <p class="callout-title">Acao pratica — Capitulo 1</p>
+      <p>Pense nas ultimas 3 vezes que voce delegou algo e o resultado veio errado. Para cada uma, responda: <strong>voce transferiu apenas a tarefa ou transferiu tambem o contexto, o padrao esperado e o prazo?</strong> Anote suas respostas. Esse diagnostico e o ponto de partida.</p>
+    </div>
+  </div>
+
+  <!-- ==================== CAPITULO 2 ==================== -->
+  <div class="page page-break">
+    <div class="chapter-header">
+      <span class="chapter-number">02</span>
+      <h2 class="chapter-title">O Metodo de 5 Passos</h2>
+      <p class="chapter-subtitle">O framework completo para delegar com clareza e resultado</p>
+    </div>
+
+    <p>Agora que voce entende o erro, vamos ao metodo. Estes sao os 5 passos que ensino nos meus mentorias e que ja foram aplicados por centenas de empresarios em mais de 50 segmentos diferentes.</p>
+
+    <p>Nao e teoria. E um passo-a-passo que voce aplica a partir de hoje.</p>
+
+    <div class="divider"></div>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">1</span>
+        <span class="step-box-title">Defina o resultado, nao o caminho</span>
+      </div>
+      <p>A maioria dos empresarios delega dizendo <em>como</em> fazer. O certo e dizer <em>o que</em> precisa ser feito e <em>qual resultado</em> e esperado.</p>
+      <p>Quando voce diz o "como", voce cria um executor. Quando voce define o "o que", voce cria um responsavel.</p>
+    </div>
+
+    <div class="example example-bad">
+      <p class="example-label">Errado — definindo o caminho</p>
+      <p>"Abre o sistema, vai na aba de orcamentos, clica em novo, coloca o nome do cliente, preenche os campos, coloca 15% de margem e manda por email."</p>
+    </div>
+
+    <div class="example example-good">
+      <p class="example-label">Certo — definindo o resultado</p>
+      <p>"Preciso que o cliente X receba um orcamento ate sexta. A margem minima e 15%. O padrao de apresentacao e este modelo aqui [mostra referencia]. Se tiver duvida sobre escopo, me chama antes de enviar."</p>
+    </div>
+
+    <p>Perceba a diferenca: no segundo caso, o colaborador tem <strong>clareza do resultado</strong>, <strong>uma referencia de qualidade</strong>, <strong>um prazo</strong> e <strong>permissao para tirar duvida</strong>.</p>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">2</span>
+        <span class="step-box-title">Transfira o contexto completo</span>
+      </div>
+      <p>Contexto e tudo aquilo que voce sabe e o colaborador nao. Antes de delegar qualquer tarefa, passe pelo checklist mental:</p>
+    </div>
+
+    <ul>
+      <li><strong>Por que</strong> essa tarefa precisa ser feita? (proposito)</li>
+      <li><strong>Para quem</strong> e o resultado final? (cliente, socio, fornecedor)</li>
+      <li><strong>Qual o historico?</strong> (ja tentamos antes? o que funcionou/falhou?)</li>
+      <li><strong>Qual o padrao de qualidade?</strong> (mostra uma referencia real)</li>
+      <li><strong>Quais sao as restricoes?</strong> (orcamento, prazo, limitacoes tecnicas)</li>
+      <li><strong>O que NAO pode acontecer?</strong> (erros criticos a evitar)</li>
+    </ul>
+
+    <div class="callout callout-gold">
+      <p>Regra: se voce precisa de mais de 10 minutos para passar o contexto, e sinal de que essa tarefa e complexa demais para delegar de uma vez. Quebre em partes menores.</p>
+    </div>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">3</span>
+        <span class="step-box-title">Escolha a pessoa certa</span>
+      </div>
+      <p>Nem toda tarefa pode ir para qualquer pessoa. Voce precisa avaliar dois fatores:</p>
+      <p><strong>Competencia:</strong> a pessoa tem o conhecimento tecnico para executar?</p>
+      <p><strong>Maturidade:</strong> a pessoa ja demonstrou responsabilidade em tarefas similares?</p>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Perfil</th>
+          <th>Como delegar</th>
+          <th>Nivel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Alta competencia + alta maturidade</td>
+          <td>Defina o resultado e saia do caminho. Confie.</td>
+          <td><span class="tag tag-green">Autonomia total</span></td>
+        </tr>
+        <tr>
+          <td>Alta competencia + baixa maturidade</td>
+          <td>Defina resultado + checkpoints intermediarios.</td>
+          <td><span class="tag tag-gold">Acompanhamento</span></td>
+        </tr>
+        <tr>
+          <td>Baixa competencia + alta maturidade</td>
+          <td>Treine primeiro, depois delegue com referencia.</td>
+          <td><span class="tag tag-gold">Treinamento</span></td>
+        </tr>
+        <tr>
+          <td>Baixa competencia + baixa maturidade</td>
+          <td>Nao delegue tarefas criticas. Comece com tarefas menores.</td>
+          <td><span class="tag tag-red">Desenvolvimento</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">4</span>
+        <span class="step-box-title">Combine os checkpoints</span>
+      </div>
+      <p>Nunca delegue e espere o resultado final. Combine pontos de verificacao intermediarios proporcionais a complexidade da tarefa.</p>
+      <p><strong>Tarefa simples (1-2 dias):</strong> um checkpoint no meio do caminho.</p>
+      <p><strong>Tarefa media (1-2 semanas):</strong> checkpoints a cada 2-3 dias.</p>
+      <p><strong>Projeto complexo (1 mes+):</strong> reuniao semanal de alinhamento de 15 minutos.</p>
+    </div>
+
+    <p>O checkpoint nao e para cobrar. E para <strong>corrigir rota antes que o erro fique caro.</strong></p>
+
+    <div class="example example-good">
+      <p class="example-label">Exemplo de checkpoint</p>
+      <p>"Joao, ate quarta me mostra o rascunho do orcamento antes de formatar e enviar. Quero validar os numeros contigo. Depois disso, voce mesmo envia para o cliente."</p>
+    </div>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">5</span>
+        <span class="step-box-title">Faca o fechamento</span>
+      </div>
+      <p>Quando a tarefa terminar, dedique 5 minutos para um fechamento rapido. Tres perguntas:</p>
+    </div>
+
+    <ol>
+      <li><strong>"O que funcionou bem?"</strong> — reforce o que deve se repetir.</li>
+      <li><strong>"O que poderia ser melhor?"</strong> — identifique ajustes para a proxima vez.</li>
+      <li><strong>"O que voce precisa de mim para fazer isso sozinho da proxima vez?"</strong> — construa autonomia progressiva.</li>
+    </ol>
+
+    <p>Esse fechamento de 5 minutos e o que transforma uma delegacao pontual em <strong>uma transferencia permanente de responsabilidade.</strong></p>
+
+    <div class="formula">
+      <p class="formula-label">O Metodo Resumido</p>
+      <p class="formula-content">Resultado <span>+</span> Contexto <span>+</span> Pessoa certa <span>+</span> Checkpoints <span>+</span> Fechamento</p>
+    </div>
+
+    <div class="callout callout-action">
+      <p class="callout-title">Acao pratica — Capitulo 2</p>
+      <p>Escolha UMA tarefa que voce faz toda semana e que poderia ser delegada. Aplique os 5 passos nela esta semana. Escreva: qual o resultado esperado, qual contexto precisa ser passado, quem vai executar, qual sera o checkpoint e quando voce fara o fechamento.</p>
+    </div>
+  </div>
+
+  <!-- ==================== CAPITULO 3 ==================== -->
+  <div class="page page-break">
+    <div class="chapter-header">
+      <span class="chapter-number">03</span>
+      <h2 class="chapter-title">A Matriz de Delegacao</h2>
+      <p class="chapter-subtitle">O que delegar, para quem e quando — sem achismo</p>
+    </div>
+
+    <p>O Metodo de 5 Passos te ensina <em>como</em> delegar. Mas existe uma pergunta anterior e tao importante quanto: <strong>o que voce deveria estar delegando?</strong></p>
+
+    <p>A maioria dos empresarios tenta delegar tudo de uma vez (e se frustra) ou nao delega nada (e se esgota). Os dois extremos sao errados.</p>
+
+    <p>Voce precisa de um criterio claro. E aqui esta ele:</p>
+
+    <h2>A Matriz de 4 Quadrantes</h2>
+
+    <p>Para decidir o que fazer com cada tarefa do seu dia, avalie dois eixos:</p>
+
+    <ul>
+      <li><strong>Eixo 1 — So voce pode fazer?</strong> (sim ou nao)</li>
+      <li><strong>Eixo 2 — Gera resultado direto pro negocio?</strong> (alto ou baixo impacto)</li>
+    </ul>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>So voce pode fazer</th>
+          <th>Outra pessoa pode fazer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Alto impacto</strong></td>
+          <td><span class="tag tag-green">FACA</span> — Sua zona de genialidade. Proteja esse tempo.</td>
+          <td><span class="tag tag-gold">DELEGUE COM CUIDADO</span> — Treine alguem, mas acompanhe de perto.</td>
+        </tr>
+        <tr>
+          <td><strong>Baixo impacto</strong></td>
+          <td><span class="tag tag-gold">SISTEMATIZE</span> — Crie um processo e tire de voce.</td>
+          <td><span class="tag tag-red">DELEGUE JA</span> — Isso nao deveria mais estar com voce.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Exemplos praticos por quadrante</h3>
+
+    <p><strong>FACA (alto impacto + so voce):</strong></p>
+    <ul>
+      <li>Negociar parcerias estrategicas</li>
+      <li>Definir o posicionamento do negocio</li>
+      <li>Reuniao com clientes-chave</li>
+      <li>Decisoes de investimento e crescimento</li>
+    </ul>
+
+    <p><strong>DELEGUE COM CUIDADO (alto impacto + outra pessoa pode):</strong></p>
+    <ul>
+      <li>Atendimento de vendas complexas</li>
+      <li>Gestao de projetos grandes</li>
+      <li>Treinamento de novos lideres</li>
+      <li>Contratacao de pessoas-chave</li>
+    </ul>
+
+    <p><strong>SISTEMATIZE (baixo impacto + so voce faz hoje):</strong></p>
+    <ul>
+      <li>Aprovacoes que poderiam ter criterios pre-definidos</li>
+      <li>Respostas a perguntas que se repetem</li>
+      <li>Revisoes que poderiam seguir um checklist</li>
+    </ul>
+
+    <p><strong>DELEGUE JA (baixo impacto + qualquer pessoa pode):</strong></p>
+    <ul>
+      <li>Responder mensagens operacionais</li>
+      <li>Agendar reunioes</li>
+      <li>Pagamentos de rotina</li>
+      <li>Compras operacionais</li>
+      <li>Postagens em redes sociais</li>
+    </ul>
+
+    <div class="callout callout-warning">
+      <p><strong>Atencao:</strong> se mais de 50% do seu dia esta nos quadrantes "Sistematize" e "Delegue Ja", voce nao esta dirigindo sua empresa — voce esta preso dentro dela.</p>
+    </div>
+
+    <h3>O exercicio das 3 listas</h3>
+
+    <p>Pegue um papel e crie tres listas:</p>
+
+    <ol>
+      <li><strong>Lista Vermelha:</strong> tudo que voce faz hoje que OUTRA PESSOA poderia fazer. Seja honesto — a lista vai ser maior do que voce imagina.</li>
+      <li><strong>Lista Amarela:</strong> tudo que voce faz hoje que precisa de um PROCESSO para sair de voce. Nao precisa de uma pessoa nova — precisa de um sistema.</li>
+      <li><strong>Lista Verde:</strong> o que REALMENTE so voce pode e deve fazer. Essa lista deveria ter no maximo 5 itens.</li>
+    </ol>
+
+    <div class="callout callout-action">
+      <p class="callout-title">Acao pratica — Capitulo 3</p>
+      <p>Faca o exercicio das 3 listas agora. Revise sua agenda da ultima semana, hora por hora, e classifique cada atividade. Depois, escolha as 3 primeiras tarefas da Lista Vermelha e defina: para quem vai, quando vai e como voce vai delegar (usando os 5 Passos do capitulo anterior).</p>
+    </div>
+  </div>
+
+  <!-- ==================== CAPITULO 4 ==================== -->
+  <div class="page page-break">
+    <div class="chapter-header">
+      <span class="chapter-number">04</span>
+      <h2 class="chapter-title">Delegar Nao e Delargar</h2>
+      <p class="chapter-subtitle">Como acompanhar sem fazer microgestao</p>
+    </div>
+
+    <p>Existe um medo real que todo empresario sente quando comeca a delegar de verdade: <strong>"Se eu nao estiver em cima, vai dar errado."</strong></p>
+
+    <p>Esse medo cria dois comportamentos extremos:</p>
+
+    <ul>
+      <li><strong>O Microgestor:</strong> delega, mas fica em cima a cada 30 minutos perguntando "e ai, como esta?". O colaborador se sente vigiado, perde autonomia e para de pensar.</li>
+      <li><strong>O Delargador:</strong> delega e some. Nao acompanha, nao pergunta, nao valida. Quando vê, o resultado esta completamente fora do esperado.</li>
+    </ul>
+
+    <p>Nenhum dos dois funciona. O que funciona e um <strong>sistema de acompanhamento proporcional.</strong></p>
+
+    <h2>O Sistema de 3 Niveis</h2>
+
+    <p>Nem toda tarefa precisa do mesmo nivel de acompanhamento. Ajuste conforme a maturidade da pessoa e a criticidade da tarefa:</p>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">A</span>
+        <span class="step-box-title">Nivel Proximo — Tarefas criticas ou pessoa nova</span>
+      </div>
+      <p><strong>Frequencia:</strong> checkpoint diario de 10 minutos.</p>
+      <p><strong>Como:</strong> "Me mostra onde voce esta. O que ja fez? Tem alguma duvida antes de continuar?"</p>
+      <p><strong>Quando usar:</strong> primeira vez que a pessoa faz a tarefa, projetos com deadline apertado, tarefas que afetam cliente final.</p>
+      <p><strong>Duracao:</strong> temporario — 1 a 2 semanas ate a pessoa ganhar seguranca.</p>
+    </div>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">B</span>
+        <span class="step-box-title">Nivel Intermediario — Tarefas recorrentes, pessoa em desenvolvimento</span>
+      </div>
+      <p><strong>Frequencia:</strong> checkpoint semanal de 15 minutos.</p>
+      <p><strong>Como:</strong> reuniao rapida para revisar entregas da semana, alinhar prioridades da proxima e resolver travamentos.</p>
+      <p><strong>Quando usar:</strong> tarefas que a pessoa ja fez antes mas ainda precisa de validacao.</p>
+    </div>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">C</span>
+        <span class="step-box-title">Nivel Autonomo — Tarefas dominadas, pessoa madura</span>
+      </div>
+      <p><strong>Frequencia:</strong> revisao mensal ou por demanda.</p>
+      <p><strong>Como:</strong> a pessoa reporta resultados (nao tarefas). Voce so interfere se os indicadores cairem.</p>
+      <p><strong>Quando usar:</strong> tarefas que a pessoa ja domina e entrega com consistencia.</p>
+    </div>
+
+    <div class="callout callout-gold">
+      <p>O objetivo e levar toda a sua equipe do Nivel A para o Nivel C ao longo do tempo. Isso e construir autonomia. Isso e criar uma empresa que funciona sem voce.</p>
+    </div>
+
+    <h3>Os 4 combinados que eliminam microgestao</h3>
+
+    <p>Antes de delegar qualquer tarefa, faca estes 4 combinados com o colaborador:</p>
+
+    <ol>
+      <li><strong>Combinado de resultado:</strong> "O que precisa ser entregue e [X] ate [data]."</li>
+      <li><strong>Combinado de qualidade:</strong> "O padrao aceitavel e [referencia]. Abaixo disso, refazemos."</li>
+      <li><strong>Combinado de comunicacao:</strong> "Se travar, me avisa em ate [X horas]. Nao espera ate o fim."</li>
+      <li><strong>Combinado de autonomia:</strong> "Decisoes ate [R$ X / escopo Y] voce toma sozinho. Acima disso, me consulta."</li>
+    </ol>
+
+    <p>Com esses 4 combinados, voce nao precisa ficar em cima. A pessoa sabe o que entregar, quando pedir ajuda e ate onde pode decidir sozinha.</p>
+
+    <div class="example example-good">
+      <p class="example-label">Exemplo completo dos 4 combinados</p>
+      <p>"Maria, a partir de agora voce e responsavel pelo onboarding de clientes novos. O padrao e o checklist que montamos juntos — todo cliente precisa passar por esses 8 passos na primeira semana. Se algum cliente reclamar ou se voce nao conseguir contato em 48h, me avisa no mesmo dia. Fora isso, voce toca sozinha. Vamos fazer um checkpoint rapido toda sexta as 10h nas primeiras 4 semanas."</p>
+    </div>
+
+    <div class="callout callout-action">
+      <p class="callout-title">Acao pratica — Capitulo 4</p>
+      <p>Para cada pessoa da sua equipe, defina em qual nivel de acompanhamento ela esta hoje (A, B ou C) para as principais tarefas dela. Depois, faca os 4 combinados com pelo menos uma pessoa esta semana. Escreva os combinados e compartilhe com ela — combinado nao dito e combinado nao feito.</p>
+    </div>
+  </div>
+
+  <!-- ==================== CAPITULO 5 ==================== -->
+  <div class="page page-break">
+    <div class="chapter-header">
+      <span class="chapter-number">05</span>
+      <h2 class="chapter-title">A Empresa Autogerenciavel</h2>
+      <p class="chapter-subtitle">O caminho para uma operacao que roda sem voce</p>
+    </div>
+
+    <p>Delegar tarefas e o primeiro passo. Mas se voce quer liberdade operacional de verdade, o objetivo final nao e delegar tarefas — <strong>e delegar decisoes.</strong></p>
+
+    <p>Enquanto voce delega tarefas, sua equipe executa. Quando voce delega decisoes, sua equipe <strong>gerencia.</strong></p>
+
+    <p>E ai que sua empresa começa a funcionar sem voce.</p>
+
+    <h2>Os 3 Estagios da Liberdade Operacional</h2>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">1</span>
+        <span class="step-box-title">Estagio 1 — Voce delega tarefas</span>
+      </div>
+      <p>As pessoas executam o que voce manda. Voce ainda decide tudo, mas pelo menos nao faz tudo.</p>
+      <p><strong>Resultado:</strong> voce ganha algumas horas por semana, mas ainda e o cerebro da operacao.</p>
+    </div>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">2</span>
+        <span class="step-box-title">Estagio 2 — Voce delega processos</span>
+      </div>
+      <p>Voce cria sistemas, checklists e padroes. As pessoas seguem o processo sem precisar perguntar a cada passo.</p>
+      <p><strong>Resultado:</strong> a operacao roda no piloto automatico para tarefas recorrentes. Voce so intervem em excecoes.</p>
+    </div>
+
+    <div class="step-box">
+      <div class="step-box-header">
+        <span class="step-box-number">3</span>
+        <span class="step-box-title">Estagio 3 — Voce delega decisoes</span>
+      </div>
+      <p>Voce define os criterios de decisao e as pessoas decidem sozinhas dentro desses limites. Voce acompanha resultados, nao tarefas.</p>
+      <p><strong>Resultado:</strong> a empresa funciona sem a sua presenca no dia a dia. Voce foca em estrategia e crescimento.</p>
+    </div>
+
+    <div class="formula">
+      <p class="formula-label">A progressao</p>
+      <p class="formula-content">Delegar Tarefas <span>→</span> Delegar Processos <span>→</span> Delegar Decisoes <span>=</span> Liberdade</p>
+    </div>
+
+    <h3>Como delegar decisoes na pratica</h3>
+
+    <p>Para cada area da sua empresa, defina:</p>
+
+    <ol>
+      <li><strong>Quem e o responsavel?</strong> — Uma pessoa, nao um grupo. Responsabilidade difusa e responsabilidade de ninguem.</li>
+      <li><strong>Quais decisoes essa pessoa pode tomar sozinha?</strong> — Defina o escopo e o limite (financeiro, operacional, relacional).</li>
+      <li><strong>Quais indicadores voce vai acompanhar?</strong> — Nao acompanhe tarefas, acompanhe resultados. Ex: satisfacao do cliente, tempo de entrega, margem do projeto.</li>
+      <li><strong>Quando essa pessoa deve escalar para voce?</strong> — Defina os gatilhos claros. Ex: reclamacao formal de cliente, gasto acima de R$ 5.000, contratacao/demissao.</li>
+    </ol>
+
+    <div class="example example-good">
+      <p class="example-label">Exemplo de delegacao de decisao</p>
+      <p>"Carlos, voce e o responsavel pela area comercial. Voce decide sobre descontos de ate 10%, prazos de pagamento padrao e priorizacao de leads. Acima de 10% de desconto ou proposta acima de R$ 50 mil, me consulta. Todo mes, me apresenta: faturamento, taxa de conversao e ticket medio. Se a conversao cair abaixo de 20%, a gente senta para revisar junto."</p>
+    </div>
+
+    <h3>Os 5 processos que toda empresa precisa documentar primeiro</h3>
+
+    <p>Voce nao precisa documentar tudo de uma vez. Comece pelos 5 que mais geram dependencia de voce:</p>
+
+    <ol>
+      <li><strong>Processo de vendas:</strong> do primeiro contato ate o fechamento. Quem faz o que em cada etapa.</li>
+      <li><strong>Processo de entrega:</strong> do pedido/contrato ate a entrega final. Padrao de qualidade e checkpoints.</li>
+      <li><strong>Processo de atendimento:</strong> como responder clientes, resolver problemas, escalar reclamacoes.</li>
+      <li><strong>Processo de contratacao:</strong> como encontrar, entrevistar, selecionar e integrar novas pessoas.</li>
+      <li><strong>Processo financeiro:</strong> contas a pagar, contas a receber, fluxo de caixa e aprovacoes.</li>
+    </ol>
+
+    <div class="callout callout-dark">
+      <p><strong>Dica pratica:</strong> nao escreva manuais de 30 paginas. Grave um video de 10 minutos mostrando como voce faz. Depois, peca para a pessoa que vai assumir transformar esse video em um checklist de 1 pagina. Pronto: processo documentado.</p>
+    </div>
+
+    <div class="callout callout-action">
+      <p class="callout-title">Acao pratica — Capitulo 5</p>
+      <p>Identifique em qual estagio voce esta hoje (1, 2 ou 3) para cada area da sua empresa. Depois, escolha UMA area para avancar de estagio este mes. Grave o video do processo principal dessa area e delegue a criacao do checklist para o responsavel.</p>
+    </div>
+  </div>
+
+  <!-- ==================== CHECKLIST ==================== -->
+  <div class="page page-break">
+    <div class="chapter-header">
+      <span class="chapter-number">+</span>
+      <h2 class="chapter-title">Checklist Pratico</h2>
+      <p class="chapter-subtitle">Para aplicar o metodo a partir de segunda-feira</p>
+    </div>
+
+    <p>Este checklist resume tudo que voce aprendeu em acoes concretas. Imprima, salve ou copie — e va marcando conforme executa.</p>
+
+    <h3>Semana 1 — Diagnostico</h3>
+    <ul class="checklist">
+      <li>Revise sua agenda da ultima semana e classifique cada atividade na Matriz de 4 Quadrantes</li>
+      <li>Faca o exercicio das 3 Listas (Vermelha, Amarela, Verde)</li>
+      <li>Identifique as 3 tarefas que mais consomem seu tempo e que outra pessoa poderia fazer</li>
+      <li>Para cada pessoa da equipe, defina o nivel de acompanhamento atual (A, B ou C)</li>
+    </ul>
+
+    <h3>Semana 2 — Primeira delegacao estruturada</h3>
+    <ul class="checklist">
+      <li>Escolha 1 tarefa da Lista Vermelha para delegar</li>
+      <li>Aplique o Passo 1: defina o resultado esperado (nao o caminho)</li>
+      <li>Aplique o Passo 2: prepare o contexto completo (use o checklist mental do Cap. 2)</li>
+      <li>Aplique o Passo 3: escolha a pessoa certa usando a tabela de competencia x maturidade</li>
+      <li>Faca os 4 combinados com o colaborador (resultado, qualidade, comunicacao, autonomia)</li>
+      <li>Agende o primeiro checkpoint</li>
+    </ul>
+
+    <h3>Semana 3 — Ajuste e expansao</h3>
+    <ul class="checklist">
+      <li>Faca o fechamento da primeira delegacao (3 perguntas do Cap. 2)</li>
+      <li>Delegue mais 2 tarefas da Lista Vermelha usando o mesmo metodo</li>
+      <li>Comece a documentar 1 processo (grave o video de 10 min + checklist de 1 pagina)</li>
+      <li>Revise os checkpoints: algum colaborador pode passar do Nivel A para o B?</li>
+    </ul>
+
+    <h3>Semana 4 — Sistema rodando</h3>
+    <ul class="checklist">
+      <li>Revise: quantas horas por semana voce liberou?</li>
+      <li>Identifique a proxima area para avancar de estagio (tarefas → processos → decisoes)</li>
+      <li>Delegue a responsabilidade de 1 processo completo para alguem (nao so tarefas)</li>
+      <li>Defina os indicadores que voce vai acompanhar no lugar das tarefas</li>
+      <li>Celebre o progresso — e repita o ciclo no proximo mes</li>
+    </ul>
+
+    <div class="callout callout-gold">
+      <p>Lembre-se: delegacao nao e um evento. E um habito. Cada semana que voce aplica esse metodo, sua empresa depende menos de voce. Em 90 dias, a diferenca e transformadora.</p>
+    </div>
+  </div>
+
+  <!-- ==================== FECHAMENTO ==================== -->
+  <div class="page page-break">
+    <h1>Uma ultima coisa</h1>
+    <div class="divider"></div>
+
+    <p>Voce chegou ate aqui, o que significa que voce nao e o tipo de empresario que se conforma em ser refem do proprio negocio.</p>
+
+    <p>Agora voce tem o metodo. Tem a matriz. Tem o sistema de acompanhamento. Tem o checklist.</p>
+
+    <p>O que falta e <strong>a decisao de comecar.</strong></p>
+
+    <p>Nao tente mudar tudo de uma vez. Escolha UMA tarefa. Aplique os 5 passos. Veja o resultado. E repita.</p>
+
+    <p>Em 30 dias, voce vai ter liberado horas do seu dia. Em 90 dias, voce vai ter processos rodando sem voce. Em 6 meses, voce vai olhar para tras e se perguntar por que nao fez isso antes.</p>
+
+    <div class="callout callout-dark">
+      <p><strong>A liberdade operacional nao comeca quando voce tem a equipe perfeita. Comeca quando voce aprende a delegar do jeito certo — com a equipe que voce ja tem.</strong></p>
+    </div>
+
+    <p>Bora construir uma empresa que funciona sem voce.</p>
+
+    <p style="margin-top:32px;"><strong>Lucas Miguel</strong><br><span style="color:var(--gold-dark); font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase;">Criador do Metodo Liberdade Operacional</span></p>
+
+    <div class="cta-banner">
+      <h2>Quer ir mais <span>fundo?</span></h2>
+      <p>No evento presencial Liberdade Operacional, voce aplica esse metodo ao vivo, com acompanhamento direto, networking e cases reais.</p>
+      <a href="https://www.liberdadeoperacional.com.br/campinas-vs" class="cta-link">CONHECER O EVENTO PRESENCIAL</a>
+    </div>
+  </div>
+
+  <!-- ==================== CONTRACAPA ==================== -->
+  <section class="cover" style="min-height:50vh; padding:60px 64px;">
+    <img class="cover-logo" src="https://files.greatpages.com.br/arquivos/paginas_editor/422504-daa2749ee3d018920dc536e209f40054.svg" alt="Liberdade Operacional" style="margin-bottom:24px;">
+    <p class="cover-brand" style="font-size:14px; color:rgba(255,255,255,0.5);">liberdadeoperacional.com.br</p>
+    <div class="cover-divider" style="margin:20px auto;"></div>
+    <p class="cover-brand">Material exclusivo. Todos os direitos reservados.<br>Proibida a reproducao sem autorizacao.</p>
+  </section>
+
+</body>
+</html>

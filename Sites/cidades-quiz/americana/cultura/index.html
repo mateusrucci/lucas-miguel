@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Meta Pixel — PageView preciso (navegador + CAPI deduplicados pelo mesmo event_id) -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    (function(){
+      var pvid = 'pv.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
+      fbq('init', '759367142080644');
+      fbq('track', 'PageView', {}, { eventID: pvid });
+      try { fetch('/pageview.php', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'event_id=' + encodeURIComponent(pvid) + '&url=' + encodeURIComponent(location.href) }); } catch (e) {}
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=759367142080644&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
+  <title>Seu resultado · Liberdade Operacional · Americana</title>
+  <link rel="icon" href="/assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold-light:#EED8A2;--gold-dark:#AF864C;--black-deep:#0F0F0F;--black-base:#101010;--white:#fff;--alert-red:#DA0505;--shadow-3d-green:rgb(10,139,0) 0 5px 0}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Sora",sans-serif;color:var(--white);background:var(--black-deep);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+    img{display:block;max-width:100%}
+    .wrap{width:min(100% - 36px,640px);margin:0 auto}
+    @keyframes shine{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+    .topbar{background:var(--alert-red);text-align:center;padding:9px 14px}
+    .topbar p{font-size:12.5px;font-weight:700;letter-spacing:.4px}
+    .hero{flex:1;display:flex;align-items:center;padding:38px 0;position:relative;background:var(--black-base)}
+    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(238,216,162,.08) 0%,transparent 60%);pointer-events:none}
+    .hero .wrap{position:relative;z-index:1}
+    .logo{width:100px;margin:0 auto 24px}
+    .eyebrow{display:block;text-align:center;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:13px}
+    h1{text-align:center;font-size:32px;font-weight:800;line-height:1.16;margin-bottom:24px}
+    h1 span{color:var(--gold-light)}
+    .body p{font-size:16.5px;line-height:1.62;color:rgba(255,255,255,.78);margin-bottom:14px}
+    .body p b{color:#fff}
+    .cta-box{text-align:center;margin-top:28px}
+    .btn-green{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:440px;min-height:66px;padding:0 30px;background:linear-gradient(45deg,#34a43e,#3dd14a,#34a43e,#34a43e,#3dd14a);background-size:200% 200%;color:#fff;font-size:18px;font-weight:800;letter-spacing:.5px;border:0;border-radius:100px;cursor:pointer;box-shadow:var(--shadow-3d-green);animation:shine 5s infinite,pulse 2.2s infinite;text-decoration:none}
+    .footer{padding:18px 0;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+    .footer p{font-size:11.5px;color:rgba(255,255,255,.25)}
+    @media(max-width:560px){h1{font-size:25px}.body p{font-size:15.5px}.btn-green{font-size:16px;min-height:60px}}
+  </style>
+</head>
+<body>
+  <div class="topbar"><p>⚠️ DIAGNÓSTICO CONCLUÍDO — leia com atenção</p></div>
+  <section class="hero"><div class="wrap">
+    <img class="logo" src="/assets/img/logo-liberdade-operacional.svg" alt="Liberdade Operacional">
+    <span class="eyebrow">Resultado do diagnóstico</span>
+    <h1>Seu maior gargalo hoje é a <span>CULTURA</span> da sua equipe.</h1>
+    <div class="body"><p>Você respondeu como quem sente isso todo dia: a empresa anda enquanto você está de olho. Vira as costas, o padrão cai.</p><p>E você já percebeu — não adianta contratar mais gente. Ninguém cuida do negócio com o cuidado que você tem. Você virou o controle de qualidade de tudo: confere, corrige, refaz. Sem parar.</p><p>O preço? Você não desliga. Não tira férias de verdade. Leva a empresa pra dentro de casa, pro domingo, pra cama. E ainda acha que é assim mesmo — que é o seu papel.</p><p><b>Não é.</b> O problema nunca foi a sua equipe. É que ninguém ensinou ela a pensar como dona. E isso dá pra ensinar.</p><p>Tem um caminho pra ter um time que veste a camisa de verdade — e te devolve sua liberdade. É o seu próximo passo. 👇</p></div>
+    <div class="cta-box"><a class="btn-green" id="cta" href="/quiz/americana/cultura/oferta/">QUERO RESOLVER ISSO →</a></div>
+  </div></section>
+  <footer class="footer"><div class="wrap"><p>IGM Treinamentos · Liberdade Operacional</p></div></footer>
+  <script>(function(){var qs=location.search;if(!qs||qs.length<2)return;var a=document.getElementById('cta');a.href+=(a.href.indexOf('?')===-1?'?':'&')+qs.substring(1);})();</script>
+</body>
+</html>

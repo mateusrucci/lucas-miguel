@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Liberdade Operacional · Escolha sua cidade — Lucas Miguel</title>
+  <meta name="description" content="Evento presencial Liberdade Operacional com Lucas Miguel. Escolha sua cidade: Americana, Indaiatuba, Campinas ou Araçatuba.">
+  <link rel="icon" href="/assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --gold-light:#EED8A2; --gold-medium:#E5C076; --gold-dark:#AF864C;
+      --black-deep:#0F0F0F; --black-base:#141414; --graphite:#1c1c1c;
+      --white:#fff; --alert-red:#DA0505;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"Sora",sans-serif;color:var(--white);background:var(--black-deep);
+      -webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;
+      background-image:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(238,216,162,.13),transparent 60%);
+    }
+    img{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    .bio{width:min(100% - 32px,460px);margin:0 auto;padding:30px 0 26px}
+
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+    /* ---------- HEADER ---------- */
+    .head{text-align:center;margin-bottom:24px}
+    .avatar{
+      width:104px;height:104px;border-radius:50%;object-fit:cover;margin:0 auto 14px;
+      border:3px solid var(--gold-light);box-shadow:0 0 0 5px rgba(238,216,162,.12),0 14px 36px rgba(0,0,0,.55);
+    }
+    .logo{width:160px;margin:0 auto 9px}
+    .head .name{font-size:13px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,.6);text-transform:uppercase}
+    .tagline{font-size:15.5px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.82);margin-top:13px}
+    .tagline b{color:var(--gold-light);font-weight:700}
+
+    /* ---------- SELO ---------- */
+    .pill{
+      display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:7px 15px;border-radius:100px;
+      background:rgba(218,5,5,.12);border:1px solid rgba(218,5,5,.38);
+      font-size:12px;font-weight:700;letter-spacing:.4px;color:#ffd9d9;text-transform:uppercase;
+    }
+    .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--alert-red);animation:blink 1.2s infinite}
+
+    /* ---------- CIDADES ---------- */
+    .cities{display:flex;flex-direction:column;gap:13px;margin-top:24px}
+    .city-card{
+      display:flex;align-items:center;gap:14px;padding:11px 13px;border-radius:18px;
+      background:linear-gradient(145deg,var(--graphite),#161616);
+      border:1px solid rgba(238,216,162,.16);
+      box-shadow:0 8px 22px rgba(0,0,0,.4);
+      transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease;
+      position:relative;overflow:hidden;
+    }
+    .city-card::before{
+      content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+      background:linear-gradient(180deg,var(--gold-light),var(--gold-dark));
+    }
+    .city-card:hover,.city-card:active{
+      transform:translateY(-2px);border-color:rgba(238,216,162,.5);
+      box-shadow:0 12px 30px rgba(0,0,0,.55),0 0 0 1px rgba(238,216,162,.12);
+    }
+    .thumb{
+      width:64px;height:64px;border-radius:13px;object-fit:cover;flex-shrink:0;
+      border:1px solid rgba(238,216,162,.22);
+    }
+    .info{flex:1;min-width:0}
+    .city-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+    .city-name{font-size:18px;font-weight:800;letter-spacing:-.2px}
+    .date{
+      font-size:12.5px;font-weight:800;color:var(--black-deep);
+      background:var(--gold-light);padding:2px 9px;border-radius:7px;letter-spacing:.3px;white-space:nowrap;
+    }
+    .venue{display:block;font-size:13px;font-weight:500;color:rgba(255,255,255,.55);margin-top:4px;line-height:1.3}
+    .go{
+      flex-shrink:0;width:38px;height:38px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(45deg,#34a43e,#3dd14a);color:#fff;font-size:19px;font-weight:800;
+      box-shadow:0 4px 12px rgba(52,164,62,.4);animation:pulse 2.4s infinite;
+    }
+
+    .foot-note{text-align:center;font-size:12.5px;color:rgba(255,255,255,.4);margin-top:22px;line-height:1.5}
+    .foot-note b{color:rgba(255,255,255,.7)}
+    .footer{text-align:center;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
+    .footer p{font-size:11px;color:rgba(255,255,255,.25);line-height:1.5}
+
+    @media(max-width:380px){
+      .city-name{font-size:16.5px}.thumb{width:58px;height:58px}.tagline{font-size:14.5px}
+    }
+  </style>
+</head>
+<body>
+  <main class="bio">
+
+    <header class="head">
+      <img class="avatar" src="/assets/img/thumb-avatar.webp" alt="Lucas Miguel" width="104" height="104">
+      <img class="logo" src="/assets/img/logo-liberdade-operacional.svg" alt="Liberdade Operacional" width="160" height="54">
+      <p class="name">com Lucas Miguel</p>
+      <p class="tagline">O evento presencial que vai tirar você de dentro da operação.<br><b>Escolha a sua cidade 👇</b></p>
+      <span class="pill"><span class="dot"></span>Vagas limitadas · Julho 2026</span>
+    </header>
+
+    <nav class="cities">
+
+      <a class="city-card" href="/americana/">
+        <img class="thumb" src="/assets/img/thumb-americana.webp" alt="Americana" width="64" height="64" loading="lazy">
+        <div class="info">
+          <span class="city-line"><span class="city-name">Americana</span><span class="date">21/07</span></span>
+          <span class="venue">NoHotel Americana</span>
+        </div>
+        <span class="go">→</span>
+      </a>
+
+      <a class="city-card" href="/indaiatuba/">
+        <img class="thumb" src="/assets/img/thumb-indaiatuba.webp" alt="Indaiatuba" width="64" height="64" loading="lazy">
+        <div class="info">
+          <span class="city-line"><span class="city-name">Indaiatuba</span><span class="date">22/07</span></span>
+          <span class="venue">Royal Palm Tower</span>
+        </div>
+        <span class="go">→</span>
+      </a>
+
+      <a class="city-card" href="/campinas/">
+        <img class="thumb" src="/assets/img/thumb-campinas.webp" alt="Campinas" width="64" height="64" loading="lazy">
+        <div class="info">
+          <span class="city-line"><span class="city-name">Campinas</span><span class="date">23/07</span></span>
+          <span class="venue">Hotel Monreale Plus Midtown</span>
+        </div>
+        <span class="go">→</span>
+      </a>
+
+      <a class="city-card" href="/aracatuba/">
+        <img class="thumb" src="/assets/img/thumb-aracatuba.webp" alt="Araçatuba" width="64" height="64" loading="lazy">
+        <div class="info">
+          <span class="city-line"><span class="city-name">Araçatuba</span><span class="date">28/07</span></span>
+          <span class="venue">Araçatuba Plaza Hotel</span>
+        </div>
+        <span class="go">→</span>
+      </a>
+
+    </nav>
+
+    <p class="foot-note">Todas as datas das <b>14h às 21h</b>.<br>Clique na sua cidade e garanta seu ingresso.</p>
+
+    <footer class="footer">
+      <p>IGM Treinamentos · Liberdade Operacional<br>© 2026 Lucas Miguel. Todos os direitos reservados.</p>
+    </footer>
+
+  </main>
+
+  <script>
+    /* Repassa UTMs/fbclid pra LP de cada cidade */
+    (function () {
+      var qs = window.location.search;
+      if (!qs || qs.length < 2) return;
+      document.querySelectorAll('a.city-card').forEach(function (a) {
+        a.href += (a.href.indexOf('?') === -1 ? '?' : '&') + qs.substring(1);
+      });
+    })();
+  </script>
+
+</body>
+</html>

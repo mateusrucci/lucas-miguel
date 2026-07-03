@@ -1,0 +1,52 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Sites/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Rsync Sites/ to VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "${{ secrets.SSH_PORT }}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Rsync Sites/ to VPS
+        run: |
+          rsync -avz --delete \
+            --exclude '.DS_Store' \
+            --exclude '*.swp' \
+            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=accept-new" \
+            ./Sites/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/
+
+      - name: Fix permissions and reload nginx
+        run: |
+          ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} \
+            -o StrictHostKeyChecking=accept-new \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "chown -R www-data:www-data ${{ secrets.DEPLOY_PATH }} && \
+             find ${{ secrets.DEPLOY_PATH }} -type d -exec chmod 755 {} \; && \
+             find ${{ secrets.DEPLOY_PATH }} -type f -exec chmod 644 {} \; && \
+             nginx -t && systemctl reload nginx"
+
+      - name: Cleanup
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Meta Pixel — PageView preciso (navegador + CAPI deduplicados pelo mesmo event_id) -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    (function(){
+      var pvid = 'pv.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
+      fbq('init', '759367142080644');
+      fbq('track', 'PageView', {}, { eventID: pvid });
+      try { fetch('/pageview.php', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'event_id=' + encodeURIComponent(pvid) + '&url=' + encodeURIComponent(location.href) }); } catch (e) {}
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=759367142080644&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
+  <title>Diagnóstico — O que está te prendendo na sua empresa? · Araçatuba</title>
+  <link rel="icon" href="/assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold-light:#EED8A2;--gold-medium:#E5C076;--gold-dark:#AF864C;--black-deep:#0F0F0F;--black-soft:#1C1C1C;--graphite:#242424;--white:#fff;--shadow-3d-green:rgb(10,139,0) 0 5px 0}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Sora",sans-serif;color:var(--white);background:var(--black-deep);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+    img{display:block;max-width:100%} a{color:inherit;text-decoration:none}
+    .wrap{width:min(100% - 36px,600px);margin:0 auto}
+    @keyframes shine{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    .topbar{padding:18px 0 0}
+    .logo{width:104px;margin:0 auto 16px}
+    .progress{height:7px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));border-radius:100px;transition:width .35s ease}
+    .progress-label{font-size:12px;color:rgba(255,255,255,.45);text-align:center;margin-top:8px;letter-spacing:.5px}
+
+    main{flex:1;display:flex;align-items:center;padding:24px 0 40px}
+    .screen{display:none;animation:fade .35s ease;width:100%}
+    .screen.active{display:block}
+
+    .intro{text-align:center}
+    .intro h1{font-size:31px;font-weight:800;line-height:1.12;margin-bottom:14px}
+    .intro h1 span{color:var(--gold-light)}
+    .intro p{font-size:17px;line-height:1.6;color:rgba(255,255,255,.65);max-width:480px;margin:0 auto 28px}
+
+    .q-eyebrow{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:12px;display:block}
+    .q-title{font-size:25px;font-weight:800;line-height:1.22;margin-bottom:24px}
+    .opts{display:flex;flex-direction:column;gap:12px}
+    .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:18px 20px;border-radius:14px;background:var(--graphite);border:1px solid rgba(255,255,255,.08);color:var(--white);font-family:"Sora",sans-serif;font-size:16px;line-height:1.4;cursor:pointer;transition:all .15s}
+    .opt:hover{border-color:rgba(238,216,162,.55);background:#2c2a22;transform:translateY(-1px)}
+    .opt .dot{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid rgba(238,216,162,.4)}
+
+    .btn-green{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:420px;min-height:62px;padding:0 28px;background:linear-gradient(45deg,#34a43e,#3dd14a,#34a43e,#34a43e,#3dd14a);background-size:200% 200%;color:#fff;font-family:"Sora",sans-serif;font-size:17px;font-weight:800;letter-spacing:.5px;border:0;border-radius:100px;cursor:pointer;box-shadow:var(--shadow-3d-green);animation:shine 5s infinite,pulse 2.2s infinite;transition:all .1s}
+    .btn-green:hover{animation:shine 3s infinite}
+    .btn-green:active{transform:translateY(3px);box-shadow:rgb(10,139,0) 0 2px 0}
+
+    .form-card{text-align:center}
+    .form-card h2{font-size:27px;font-weight:800;margin-bottom:8px}
+    .form-card h2 span{color:var(--gold-light)}
+    .form-card .sub{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:26px;line-height:1.5}
+    .fg{text-align:left;margin-bottom:14px}
+    .fg label{display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:6px}
+    .fg input,.fg select{width:100%;height:52px;padding:0 16px;border:2px solid rgba(255,255,255,.12);border-radius:12px;background:var(--black-soft);color:#fff;font-family:"Sora",sans-serif;font-size:15px}
+    .fg input:focus,.fg select:focus{outline:none;border-color:var(--gold-medium)}
+    .fg input::placeholder{color:rgba(255,255,255,.35)}
+    .form-note{font-size:12px;color:rgba(255,255,255,.4);margin-top:12px}
+
+    .footer{padding:18px 0;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+    .footer p{font-size:11.5px;color:rgba(255,255,255,.25)}
+    @media (max-width:560px){.intro h1{font-size:25px}.q-title{font-size:21px}.opt{font-size:15px;padding:16px 16px}.form-card h2{font-size:23px}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <img class="logo" src="/assets/img/logo-liberdade-operacional.svg" alt="Liberdade Operacional">
+      <div class="progress"><div class="progress-fill" id="bar"></div></div>
+      <p class="progress-label" id="plabel">Vamos começar</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="wrap">
+      <section class="screen active" id="s-intro">
+        <div class="intro">
+          <h1>Descubra o que está <span>te prendendo</span> dentro da sua empresa</h1>
+          <p>Responda 6 perguntas rápidas e veja qual é o real motivo de você não conseguir sair do operacional — e o primeiro passo pra resolver.</p>
+          <button class="btn-green" id="start">Começar o quiz →</button>
+          <p class="form-note">Leva menos de 2 minutos · 6 perguntas</p>
+        </div>
+      </section>
+
+      <section class="screen" id="s-question">
+        <span class="q-eyebrow" id="q-count">Pergunta 1 de 6</span>
+        <h2 class="q-title" id="q-title"></h2>
+        <div class="opts" id="q-opts"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer"><div class="wrap"><p>IGM Treinamentos · Liberdade Operacional</p></div></footer>
+
+  <script>
+    var CITY_SLUG = 'aracatuba';
+    var QUESTIONS = [
+      {q:"Quando você viaja ou tira um dia de folga, o que acontece com a empresa?", o:[
+        ["Ninguém faz direito sem mim por perto","cultura"],
+        ["Me ligam o tempo todo pra decidir tudo","lideranca"],
+        ["Não faço ideia se faturou ou gastou mais","gestao"],
+        ["As vendas despencam","vendas"],
+        ["Trava tudo, nem penso em crescer","crescimento"]]},
+      {q:"O que mais te tira o sono hoje?", o:[
+        ["Minha equipe não tem o mesmo cuidado que eu","cultura"],
+        ["Eu sou o único que resolve os problemas","lideranca"],
+        ["Não sei se estou tendo lucro de verdade","gestao"],
+        ["Minha receita é uma montanha-russa","vendas"],
+        ["Cresço e fico mais preso ainda","crescimento"]]},
+      {q:"Como você descreveria sua equipe?", o:[
+        ["Fazem o que mando, mas sem iniciativa","cultura"],
+        ["Boas pessoas, mas dependem de mim pra decidir","lideranca"],
+        ["Não consigo medir se entregam resultado","gestao"],
+        ["Só vendem se eu ficar empurrando","vendas"],
+        ["Pequena demais pra dar conta de crescer","crescimento"]]},
+      {q:"Quando você olha pros números da empresa, você...", o:[
+        ["Nem olho direito, confio na equipe","cultura"],
+        ["Olho, mas sou eu que tenho que cobrar tudo","lideranca"],
+        ["Me perco, é complicado demais","gestao"],
+        ["Só olho o quanto vendeu","vendas"],
+        ["Vejo que pra crescer vou precisar de muito mais","crescimento"]]},
+      {q:"Qual frase combina mais com você?", o:[
+        ['"Se quer bem feito, faça você mesmo"',"cultura"],
+        ['"Eu sou o gargalo da minha empresa"',"lideranca"],
+        ['"Trabalho muito, mas não sei se sobra dinheiro"',"gestao"],
+        ['"Sem mim, não entra cliente"',"vendas"],
+        ['"Tenho medo de crescer e perder o controle"',"crescimento"]]},
+      {q:"Se você pudesse resolver UMA coisa hoje, qual seria?", o:[
+        ["Ter uma equipe que pensa como dono","cultura"],
+        ["Formar líderes que decidem sem mim","lideranca"],
+        ["Enxergar e controlar meus números","gestao"],
+        ["Ter vendas que não dependem de mim","vendas"],
+        ["Crescer com segurança, sem virar escravo","crescimento"]]}
+    ];
+
+    var bar=document.getElementById('bar'), plabel=document.getElementById('plabel');
+    var sIntro=document.getElementById('s-intro'), sQ=document.getElementById('s-question');
+    var qCount=document.getElementById('q-count'), qTitle=document.getElementById('q-title'), qOpts=document.getElementById('q-opts');
+    var idx=0, scores={cultura:0,lideranca:0,gestao:0,vendas:0,crescimento:0}, answers=[];
+    var TOTAL=QUESTIONS.length;
+
+    function show(el){[sIntro,sQ].forEach(function(s){s.classList.remove('active')});el.classList.add('active');window.scrollTo(0,0);}
+    function setProgress(n){bar.style.width=(n/TOTAL*100)+'%';}
+
+    document.getElementById('start').addEventListener('click',function(){idx=0;renderQ();show(sQ);});
+
+    function renderQ(){
+      var item=QUESTIONS[idx];
+      qCount.textContent='Pergunta '+(idx+1)+' de '+TOTAL;
+      plabel.textContent='Pergunta '+(idx+1)+' de '+TOTAL;
+      setProgress(idx+1);
+      qTitle.textContent=item.q;
+      qOpts.innerHTML='';
+      item.o.forEach(function(opt){
+        var b=document.createElement('button');
+        b.className='opt'; b.type='button';
+        b.innerHTML='<span class="dot"></span><span>'+opt[0]+'</span>';
+        b.addEventListener('click',function(){
+          scores[opt[1]]++; answers[idx]=opt[1];
+          if(idx<TOTAL-1){idx++;renderQ();} else {finish();}
+        });
+        qOpts.appendChild(b);
+      });
+    }
+
+    function dominant(){
+      var order=['cultura','lideranca','gestao','vendas','crescimento'], max=-1, win=null;
+      order.forEach(function(d){ if(scores[d]>max){max=scores[d];win=d;} });
+      var q6=answers[TOTAL-1];                       // desempate: vale a resposta da última pergunta
+      if(q6 && scores[q6]===max) win=q6;
+      return win;
+    }
+
+    /* Sem captura de lead no quiz: vai direto pro resultado (o lead é capturado na LP da dor) */
+    function finish(){
+      plabel.textContent='Pronto!'; setProgress(TOTAL);
+      var dor=dominant();
+      window.location.href='/quiz/'+CITY_SLUG+'/'+dor+'/'+(window.location.search||'');
+    }
+  </script>
+</body>
+</html>

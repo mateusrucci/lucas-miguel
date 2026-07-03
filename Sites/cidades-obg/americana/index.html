@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Meta Pixel — PageView preciso (navegador + CAPI deduplicados pelo mesmo event_id) -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    (function(){
+      var pvid = 'pv.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
+      fbq('init', '759367142080644');
+      fbq('track', 'PageView', {}, { eventID: pvid });
+      try { fetch('/pageview.php', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'event_id=' + encodeURIComponent(pvid) + '&url=' + encodeURIComponent(location.href) }); } catch (e) {}
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=759367142080644&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
+  <title>Parabéns! Assista o vídeo — Liberdade Operacional · Americana</title>
+  <link rel="icon" href="/assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://scripts.converteai.net">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold-light:#EED8A2; --gold-medium:#E5C076; --gold-dark:#AF864C;
+      --black-deep:#0F0F0F; --black-base:#101010; --graphite:#242424;
+      --white:#FFF; --alert-red:#DA0505; --shadow-3d-green:rgb(10,139,0) 0 5px 0;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:"Sora",sans-serif; color:var(--white); background:var(--black-deep);
+      -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    img { display:block; max-width:100%; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { width:min(100% - 32px, 540px); margin:0 auto; }
+
+    @keyframes shine { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.45} }
+
+    .topbar { background:var(--alert-red); text-align:center; padding:7px 14px; }
+    .topbar p { font-size:12px; font-weight:700; letter-spacing:.4px; }
+    .topbar .dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:#fff; margin-right:6px; animation:blink 1.2s infinite; vertical-align:middle; }
+
+    .hero { position:relative; padding:10px 0 2px; text-align:center; background:var(--black-base); }
+    .hero::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%, rgba(238,216,162,.08) 0%, transparent 60%); pointer-events:none; }
+    .hero .wrap { position:relative; z-index:1; }
+    .logo { width:88px; margin:0 auto 7px; }
+    h1 { font-size:27px; font-weight:800; line-height:1.1; }
+    h1 em { font-style:normal; color:var(--gold-light); }
+
+    /* vídeo vertical com lazy-load (capa + play, carrega no clique) */
+    .video-sec { padding:6px 0 4px; }
+    .vid {
+      position:relative; width:100%; max-width:300px; aspect-ratio:9/16; margin:0 auto;
+      border-radius:16px; overflow:hidden; cursor:pointer;
+      border:1px solid rgba(238,216,162,.18); box-shadow:0 20px 56px rgba(0,0,0,.6); background:#111;
+    }
+    .vid iframe, .vid-cover { position:absolute; inset:0; width:100%; height:100%; border:0; }
+    .vid-cover { object-fit:cover; }
+    .vid-play {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      width:62px; height:62px; border-radius:50%; border:0; cursor:pointer;
+      background:rgba(238,216,162,.94); display:flex; align-items:center; justify-content:center;
+      box-shadow:0 6px 22px rgba(0,0,0,.55); transition:transform .15s;
+    }
+    .vid:hover .vid-play { transform:translate(-50%,-50%) scale(1.07); }
+    .vid-play svg { width:25px; height:25px; fill:#0F0F0F; margin-left:4px; }
+
+    .closer { padding:10px 0 12px; text-align:center; }
+    .timer-label { font-size:11.5px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:6px; }
+    .timer {
+      display:inline-block; font-size:35px; font-weight:800; letter-spacing:2px; color:#fff;
+      font-variant-numeric:tabular-nums; padding:4px 16px; border-radius:12px;
+      background:rgba(218,5,5,.16); border:1px solid rgba(218,5,5,.4); margin-bottom:13px;
+    }
+    .timer.over { animation:blink .8s infinite; }
+    .btn-cta {
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+      width:100%; max-width:460px; margin:0 auto; min-height:64px; padding:10px 20px;
+      background:linear-gradient(45deg,#34a43e,#3dd14a,#34a43e,#34a43e,#3dd14a); background-size:200% 200%;
+      color:#fff; font-family:"Sora",sans-serif; font-size:17px; font-weight:800; letter-spacing:.5px;
+      border:0; border-radius:100px; cursor:pointer; box-shadow:var(--shadow-3d-green);
+      animation:shine 5s infinite, pulse 2.2s infinite; transition:all .1s;
+    }
+    .btn-cta:hover { animation:shine 3s infinite; }
+    .btn-cta:active { transform:translateY(3px); box-shadow:rgb(10,139,0) 0 2px 0; }
+    .btn-cta small { font-size:12px; font-weight:500; opacity:.9; letter-spacing:0; }
+    .cta-sub { font-size:12.5px; color:rgba(255,255,255,.45); margin-top:9px; }
+    .cta-sub b { color:var(--gold-light); }
+
+    .offer { padding:10px 0 4px; }
+    .offer-title { text-align:center; font-size:21px; font-weight:800; line-height:1.2; margin-bottom:13px; }
+    .offer-title span { color:var(--gold-light); }
+    .offer-card { background:linear-gradient(145deg,#1e1c16,#1a180e); border:2px solid rgba(238,216,162,.3); border-radius:16px; padding:19px 17px; }
+    .offer-list { list-style:none; display:flex; flex-direction:column; gap:11px; }
+    .offer-list li { display:flex; align-items:flex-start; gap:10px; font-size:14.5px; line-height:1.45; color:rgba(255,255,255,.88); }
+    .offer-list .ck { flex-shrink:0; color:#3DD14A; font-weight:800; font-size:16px; }
+    .offer-list strong { color:var(--gold-light); }
+    .warn { display:flex; gap:10px; align-items:flex-start; margin-top:15px; padding:12px 14px; border-radius:11px; background:rgba(218,5,5,.1); border:1px solid rgba(218,5,5,.32); font-size:13px; line-height:1.5; color:#FFC9C9; }
+    .warn b { color:#FF8A8A; }
+    .ps { font-size:13.5px; line-height:1.5; color:rgba(255,255,255,.6); max-width:470px; margin:16px auto 0; text-align:center; }
+    .ps b { color:#fff; }
+
+    .footer { background:#080808; padding:16px 0; text-align:center; border-top:1px solid rgba(255,255,255,.05); margin-top:18px; }
+    .footer p { font-size:11.5px; color:rgba(255,255,255,.25); line-height:1.55; }
+
+    @media (max-width:560px) {
+      .hero { padding:7px 0 2px; }
+      .logo { width:72px; margin-bottom:5px; }
+      h1 { font-size:22px; }
+      .video-sec { padding:4px 0 2px; }
+      .vid { max-width:250px; }
+      .closer { padding:8px 0 10px; }
+      .timer { font-size:31px; margin-bottom:11px; }
+      .btn-cta { min-height:60px; font-size:15.5px; }
+      .offer-title { font-size:19px; }
+      .offer-card { padding:17px 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <p><span class="dot"></span>OFERTA QUE SÓ APARECE UMA VEZ — NÃO FECHE ESSA PÁGINA</p>
+  </div>
+
+  <section class="hero">
+    <div class="wrap">
+      <img class="logo" src="/assets/img/logo-liberdade-operacional.svg" alt="Liberdade Operacional" width="88" height="30">
+      <h1>Parabéns! <em>Assista o vídeo abaixo</em> 👇</h1>
+    </div>
+  </section>
+
+  <section class="video-sec">
+    <div class="wrap">
+      <script type="text/javascript">var s=document.createElement("script");s.src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js",s.async=!0,document.head.appendChild(s);</script>
+      <div id="ifr_6a3edee188e2c7a969bb847b_wrapper" style="margin:0 auto;width:100%;max-width:300px;">
+        <div style="position:relative;padding:177.77777777777777% 0 0 0;border-radius:16px;overflow:hidden;box-shadow:0 20px 56px rgba(0,0,0,.6);" id="ifr_6a3edee188e2c7a969bb847b_aspect">
+          <iframe frameborder="0" allowfullscreen src="about:blank" id="ifr_6a3edee188e2c7a969bb847b" style="position:absolute;top:0;left:0;width:100%;height:100%;" referrerpolicy="origin" onload="this.onload=null,this.src='https://scripts.converteai.net/a06ee858-267a-4250-93f9-23084cf38bc6/players/6a3edee188e2c7a969bb847b/v4/embed.html'+(location.search||'?')+'&vl='+encodeURIComponent(location.href)"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closer">
+    <div class="wrap">
+      <p class="timer-label">Essa oferta expira em</p>
+      <div class="timer" id="timer">15:00</div>
+      <a class="btn-cta" id="cta-checkout"
+         href="https://clkdmg.site/pay/evento-presencial-americana-21072026-liberdade-operacional-ingresso-duplo-bonus-2-cadeira-gratis-t">
+        QUERO MEU INGRESSO + CADEIRA GRÁTIS →
+        <small>Garanta agora antes que o tempo acabe</small>
+      </a>
+      <p class="cta-sub">🔒 Pagamento 100% seguro · <b>Vagas limitadas</b></p>
+    </div>
+  </section>
+
+  <section class="offer">
+    <div class="wrap">
+      <h2 class="offer-title">Garanta seu ingresso e leve um sócio <span>DE GRAÇA</span></h2>
+      <div class="offer-card">
+        <ul class="offer-list">
+          <li><span class="ck">✓</span> <span>Seu ingresso garantido pro dia <strong>21 de Julho, em Americana</strong></span></li>
+          <li><span class="ck">✓</span> <span><strong>+ 1 cadeira GRÁTIS</strong> pra levar quem decide junto com você</span></li>
+          <li><span class="ck">✓</span> <span>Todos os <strong>bônus do evento</strong> inclusos</span></li>
+          <li><span class="ck">✓</span> <span>Não gostou? <strong>Dinheiro de volta + R$1.000</strong> no seu bolso</span></li>
+        </ul>
+        <div class="warn">
+          <span>⚠️</span>
+          <span><b>Atenção:</b> essa condição é só nessa página. Se você sair ou atualizar, a cadeira grátis some — e aí cada um paga o ingresso cheio.</span>
+        </div>
+      </div>
+      <p class="ps"><b>Lembra:</b> depois que você sair daqui, a cadeira grátis não aparece de novo. É agora ou cada um paga sozinho.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>IGM Treinamentos · CNPJ 45.094.614/0001-18</p>
+    <p>Copyright © 2025 Lucas Miguel. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    /* Timer regressivo — recomeça em toda visita; NÃO salva em cookies/localStorage */
+    (function () {
+      var el = document.getElementById('timer');
+      var deadline = Date.now() + 15 * 60 * 1000; // calculado no load, em memória; reseta a cada abertura
+      function tick() {
+        var rem = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+        el.textContent = String(Math.floor(rem / 60)).padStart(2, '0') + ':' + String(rem % 60).padStart(2, '0');
+        if (rem <= 0) { el.classList.add('over'); el.textContent = '00:00'; }
+      }
+      tick(); setInterval(tick, 1000);
+    })();
+
+    /* Repassa UTMs/fbclid pro checkout */
+    (function () {
+      var qs = window.location.search;
+      if (!qs || qs.length < 2) return;
+      var a = document.getElementById('cta-checkout');
+      a.href += (a.href.indexOf('?') === -1 ? '?' : '&') + qs.substring(1);
+    })();
+  </script>
+
+</body>
+</html>

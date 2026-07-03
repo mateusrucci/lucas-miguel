@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ebook Gratuito — A Arte de Delegar | Lucas Miguel</title>
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold-light: #EED8A2;
+      --gold-medium: #E5C076;
+      --gold-dark: #AF864C;
+      --black-deep: #0F0F0F;
+      --black-base: #101010;
+      --black-soft: #1C1C1C;
+      --graphite: #242424;
+      --white: #FFFFFF;
+      --gray-light: #F4F4F4;
+      --off-white: #F9F9F9;
+      --cta-green: #34A43E;
+      --cta-green-light: #3DD14A;
+      --red: #DA0505;
+      --shadow-3d-green: rgb(10,139,0) 0px 5px 0px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Sora", sans-serif;
+      color: var(--white);
+      background: var(--black-deep);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(100% - 48px, 960px);
+      margin: 0 auto;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--black-base);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("assets/img/hero-bg.webp") center / cover no-repeat;
+      opacity: 0.15;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(15,15,15,0.95) 50%, rgba(15,15,15,0.4) 100%);
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 120px 0 80px;
+    }
+
+    .hero-logo {
+      width: 160px;
+      margin-bottom: 32px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      padding: 8px 18px;
+      border: 1px solid rgba(238,216,162,0.3);
+      border-radius: 100px;
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero-title span { color: var(--gold-light); }
+
+    .hero-sub {
+      font-size: 17px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .hero-proof-number {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .hero-proof-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    /* ===== FORM CARD ===== */
+    .form-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 32px;
+      color: var(--black-deep);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.5);
+    }
+
+    .form-card-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .form-card-sub {
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-card-sub strong { color: var(--black-deep); }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--graphite);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      height: 50px;
+      padding: 0 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-family: "Sora", sans-serif;
+      font-size: 15px;
+      color: var(--black-deep);
+      background: var(--off-white);
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold-medium);
+    }
+
+    .form-group input::placeholder {
+      color: #aaa;
+    }
+
+    .radio-group-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--graphite);
+      margin-bottom: 10px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .radio-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--cta-green);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(45deg, #34a43e, #3dd14a, #34a43e, #34a43e, #3dd14a);
+      background-size: 200% 200%;
+      color: var(--white);
+      font-family: "Sora", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border: 0;
+      border-radius: 100px;
+      cursor: pointer;
+      box-shadow: var(--shadow-3d-green);
+      animation: shine 5s ease-in-out infinite, pulse 2s ease-in-out infinite;
+      transition: all 0.1s;
+      letter-spacing: 1px;
+    }
+
+    .btn-submit:hover { animation: shine 3s ease-in-out infinite; }
+    .btn-submit:active { transform: translateY(3px); box-shadow: rgb(10,139,0) 0px 2px 0px; }
+
+    .form-disclaimer {
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      margin-top: 14px;
+    }
+
+    .form-disclaimer svg {
+      width: 12px;
+      height: 12px;
+      vertical-align: -1px;
+      fill: #999;
+      margin-right: 4px;
+    }
+
+    @keyframes shine {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* ===== PROBLEM SECTION ===== */
+    .section { padding: 88px 0; }
+
+    .section-dark { background: var(--black-soft); }
+    .section-light { background: var(--white); color: var(--black-deep); }
+    .section-gray { background: var(--gray-light); color: var(--black-deep); }
+    .section-gold { background: linear-gradient(135deg, #1a1710 0%, var(--black-deep) 100%); }
+
+    .section-eyebrow {
+      display: inline-block;
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .section-title span { color: var(--gold-light); }
+    .section-light .section-title span { color: var(--gold-dark); }
+
+    .section-text {
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      max-width: 640px;
+    }
+
+    .section-light .section-text,
+    .section-gray .section-text {
+      color: #555;
+    }
+
+    .section-text strong {
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .section-light .section-text strong,
+    .section-gray .section-text strong {
+      color: var(--black-deep);
+    }
+
+    /* ===== PROBLEM GRID ===== */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    .problem-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .problem-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .problem-list .icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: rgba(218,5,5,0.15);
+      color: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .problem-image {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .problem-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .callout {
+      margin-top: 40px;
+      padding: 24px 28px;
+      background: rgba(238,216,162,0.08);
+      border-left: 4px solid var(--gold-light);
+      border-radius: 0 12px 12px 0;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1.5;
+    }
+
+    /* ===== BENEFITS ===== */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .benefit-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    }
+
+    .benefit-card .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--gold-light);
+      color: var(--black-deep);
+      font-size: 16px;
+      font-weight: 800;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .benefit-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--black-deep);
+    }
+
+    .benefit-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    /* ===== FOR WHO ===== */
+    .forwho-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .check-list .icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: rgba(52,164,62,0.15);
+      color: var(--cta-green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .forwho-image {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .forwho-image img {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .forwho-image::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(15,15,15,0.6), transparent);
+    }
+
+    /* ===== AUTHORITY ===== */
+    .authority-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .authority-photo {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .authority-photo img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+    }
+
+    .authority-name {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .authority-role {
+      font-size: 14px;
+      color: var(--gold-light);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .authority-text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .authority-text strong { color: var(--black-deep); }
+
+    .authority-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .authority-stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gold-dark);
+      line-height: 1;
+    }
+
+    .authority-stat-label {
+      font-size: 13px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    /* ===== CTA FINAL ===== */
+    .cta-final {
+      text-align: center;
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--black-deep) 0%, #0a0a0a 100%);
+      position: relative;
+    }
+
+    .cta-final::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(238,216,162,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-final .container { position: relative; z-index: 1; }
+
+    .cta-final-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .cta-final-title span { color: var(--gold-light); }
+
+    .cta-final-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .btn-cta-large {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 68px;
+      padding: 0 48px;
+      background: linear-gradient(45deg, #34a43e, #3dd14a, #34a43e, #34a43e, #3dd14a);
+      background-size: 200% 200%;
+      color: var(--white);
+      font-family: "Sora", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      border: 0;
+      border-radius: 100px;
+      cursor: pointer;
+      box-shadow: var(--shadow-3d-green);
+      animation: shine 5s ease-in-out infinite, pulse 2s ease-in-out infinite;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #0a0a0a;
+      padding: 32px 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-logo { width: 120px; margin: 0 auto 16px; }
+
+    .footer p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.6;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        padding: 100px 0 60px;
+      }
+
+      .hero-title { font-size: 34px; }
+
+      .problem-grid,
+      .forwho-grid,
+      .authority-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .benefits-grid { grid-template-columns: 1fr; }
+
+      .section-title { font-size: 30px; }
+      .cta-final-title { font-size: 30px; }
+
+      .authority-stats { flex-wrap: wrap; gap: 24px; }
+
+      .problem-image,
+      .forwho-image { order: -1; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(100% - 32px, 960px); }
+      .section { padding: 60px 0; }
+      .hero-title { font-size: 28px; }
+      .form-card { padding: 28px 20px; }
+      .btn-cta-large { width: 100%; padding: 0 24px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <img class="hero-logo" src="assets/img/logo-liberdade-operacional.svg" alt="Liberdade Operacional">
+        <span class="hero-eyebrow">Ebook gratuito</span>
+        <h1 class="hero-title">Pare de Fazer Tudo Sozinho e Comece a Ter Uma Empresa Que <span>Funciona Sem Voce</span></h1>
+        <p class="hero-sub">Descubra o metodo de 5 passos que empresarios estao usando para delegar de verdade — sem perder o controle, sem retrabalho e sem depender da sua presenca para cada decisao.</p>
+        <div class="hero-proof">
+          <span class="hero-proof-number">+500</span>
+          <span class="hero-proof-text">Empresarios ja aplicaram<br>o metodo com sucesso</span>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="form-card">
+        <h2 class="form-card-title">Baixe agora — e gratuito</h2>
+        <p class="form-card-sub">Preencha seus dados e receba o ebook <strong>"A Arte de Delegar"</strong> direto no seu email.</p>
+        <form>
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Seu melhor email" required>
+          </div>
+          <div class="form-group">
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required>
+          </div>
+          <div class="form-group">
+            <p class="radio-group-label">Quantos colaboradores atuam na sua empresa?</p>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="colaboradores" value="0" required>
+                Nao tenho colaboradores
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="colaboradores" value="1-3">
+                De 1 a 3 colaboradores
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="colaboradores" value="3-5">
+                De 3 a 5 colaboradores
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="colaboradores" value="5-10">
+                De 5 a 10 colaboradores
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="colaboradores" value="10-20">
+                De 10 a 20 colaboradores
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="colaboradores" value="20+">
+                + de 20 colaboradores
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">QUERO MEU EBOOK GRATUITO</button>
+          <p class="form-disclaimer">
+            <svg viewBox="0 0 24 24"><path d="M12 1C8.676 1 6 3.676 6 7v2H4v14h16V9h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v2H8V7c0-2.276 1.724-4 4-4z"/></svg>
+            Seus dados estao seguros. Nao enviamos spam.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROBLEMA ==================== -->
+  <section class="section section-dark">
+    <div class="container">
+      <span class="section-eyebrow">Voce reconhece isso?</span>
+      <h2 class="section-title">Sua empresa cresce, mas <span>voce nao sai do lugar</span></h2>
+      <p class="section-text">Cada decisao passa por voce. Cada problema cai no seu colo. Voce contratou gente, mas continua fazendo o trabalho que deveria ser deles.</p>
+
+      <div class="problem-grid">
+        <ul class="problem-list">
+          <li>
+            <span class="icon">&#10005;</span>
+            <span>Trabalha 12 horas por dia e sente que nada anda sem voce</span>
+          </li>
+          <li>
+            <span class="icon">&#10005;</span>
+            <span>Toda vez que delega, o resultado vem errado e voce precisa refazer</span>
+          </li>
+          <li>
+            <span class="icon">&#10005;</span>
+            <span>Nao consegue tirar ferias de verdade — o celular nao para</span>
+          </li>
+          <li>
+            <span class="icon">&#10005;</span>
+            <span>Tem equipe, mas sente que esta pagando gente para ficar esperando suas ordens</span>
+          </li>
+          <li>
+            <span class="icon">&#10005;</span>
+            <span>Quer crescer, mas nao consegue soltar as tarefas do dia a dia</span>
+          </li>
+        </ul>
+        <div class="problem-image">
+          <img src="assets/img/lucas-palco-01.webp" alt="Lucas Miguel no palco">
+        </div>
+      </div>
+
+      <div class="callout">O problema nao e a sua equipe. O problema e que ninguem te ensinou a delegar do jeito certo.</div>
+    </div>
+  </section>
+
+  <!-- ==================== O QUE VOCE VAI DESCOBRIR ==================== -->
+  <section class="section section-gray">
+    <div class="container">
+      <span class="section-eyebrow" style="color:var(--gold-dark);">Dentro do ebook</span>
+      <h2 class="section-title">O que voce vai descobrir em <span>"A Arte de Delegar"</span></h2>
+      <p class="section-text">5 capitulos praticos com o metodo exato para transferir responsabilidades sem perder qualidade.</p>
+
+      <div class="benefits-grid">
+        <article class="benefit-card">
+          <span class="number">01</span>
+          <h3>O Erro #1 da Delegacao</h3>
+          <p>Descubra o que 90% dos empresarios fazem errado ao delegar — e que gera retrabalho toda vez.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="number">02</span>
+          <h3>O Metodo de 5 Passos</h3>
+          <p>O framework completo para transferir tarefas de forma estruturada, com clareza e sem perder o controle.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="number">03</span>
+          <h3>O Que Delegar (e o Que Nao)</h3>
+          <p>A matriz para saber exatamente O QUE delegar, PARA QUEM e QUANDO — sem achismo.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="number">04</span>
+          <h3>Delegar ≠ Delargar</h3>
+          <p>Como criar um sistema de acompanhamento que garante resultado sem voce precisar fazer microgestao.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="number">05</span>
+          <h3>Empresa Autogerenciavel</h3>
+          <p>O caminho para criar uma operacao que funciona mesmo quando voce nao esta presente.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="number">+</span>
+          <h3>Checklist Pratico</h3>
+          <p>Template pronto para aplicar o metodo na segunda-feira — sem enrolacao, sem teoria vazia.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PARA QUEM E ==================== -->
+  <section class="section section-gold">
+    <div class="container">
+      <div class="forwho-grid">
+        <div>
+          <span class="section-eyebrow">Para quem e</span>
+          <h2 class="section-title">Este ebook e para voce se...</h2>
+          <ul class="check-list">
+            <li>
+              <span class="icon">&#10003;</span>
+              <span>Sente que e o gargalo da propria empresa</span>
+            </li>
+            <li>
+              <span class="icon">&#10003;</span>
+              <span>Ja tentou delegar, mas acabou tendo que refazer</span>
+            </li>
+            <li>
+              <span class="icon">&#10003;</span>
+              <span>Trabalha mais do que qualquer funcionario da equipe</span>
+            </li>
+            <li>
+              <span class="icon">&#10003;</span>
+              <span>Quer crescer, mas nao consegue largar o operacional</span>
+            </li>
+            <li>
+              <span class="icon">&#10003;</span>
+              <span>Sonha em ter uma empresa que funciona sem depender 100% de voce</span>
+            </li>
+          </ul>
+        </div>
+        <div class="forwho-image">
+          <img src="assets/img/lucas-palco-02.webp" alt="Lucas Miguel palestrando">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== AUTORIDADE ==================== -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="authority-grid">
+        <div class="authority-photo">
+          <img src="assets/img/lucas-retrato.webp" alt="Lucas Miguel">
+        </div>
+        <div>
+          <span class="section-eyebrow" style="color:var(--gold-dark);">Quem criou este metodo</span>
+          <h2 class="authority-name">Lucas Miguel</h2>
+          <p class="authority-role">Criador do Metodo Liberdade Operacional</p>
+          <p class="authority-text">Empresario, mentor de donos de negocio e criador do metodo <strong>Liberdade Operacional</strong>. Ja ajudou centenas de empresarios a sairem do operacional e construirem empresas que funcionam sem a presenca deles no dia a dia.</p>
+          <p class="authority-text" style="margin-top:16px;">Neste ebook, Lucas reuniu o <strong>framework de delegacao</strong> que ensina nos seus mentorias e eventos presenciais — agora disponivel de forma gratuita para voce aplicar ainda esta semana.</p>
+          <div class="authority-stats">
+            <div>
+              <p class="authority-stat-number">+500</p>
+              <p class="authority-stat-label">Empresarios mentorados</p>
+            </div>
+            <div>
+              <p class="authority-stat-number">+50</p>
+              <p class="authority-stat-label">Segmentos atendidos</p>
+            </div>
+            <div>
+              <p class="authority-stat-number">10+</p>
+              <p class="authority-stat-label">Anos de experiencia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA FINAL ==================== -->
+  <section class="cta-final">
+    <div class="container">
+      <span class="section-eyebrow">De o primeiro passo</span>
+      <h2 class="cta-final-title">Enquanto voce faz tudo sozinho,<br><span>sua empresa nao cresce.</span></h2>
+      <p class="cta-final-sub">Cada dia preso no operacional e um dia a menos construindo o negocio que voce sempre quis. Este ebook e o primeiro passo para mudar isso.</p>
+      <a href="#" class="btn-cta-large" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">BAIXAR EBOOK GRATUITO AGORA</a>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <img class="footer-logo" src="assets/img/logo-liberdade-operacional.svg" alt="Liberdade Operacional">
+      <p>Liberdade Operacional &copy; 2026 — Todos os direitos reservados.<br>Este material e de uso exclusivo e nao pode ser reproduzido sem autorizacao.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
