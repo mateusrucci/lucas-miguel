@@ -81,6 +81,11 @@
       width:64px;height:64px;border-radius:13px;object-fit:cover;flex-shrink:0;
       border:1px solid rgba(238,216,162,.22);
     }
+    .thumb-placeholder{
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(145deg,#2a2618,#141210);
+      color:var(--gold-light);font-size:28px;font-weight:800;letter-spacing:.5px;
+    }
     .info{flex:1;min-width:0}
     .city-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
     .city-name{font-size:18px;font-weight:800;letter-spacing:-.2px}
@@ -156,6 +161,7 @@
       </a>
 
       <a class="city-card" href="/marilia/">
+        <div class="thumb thumb-placeholder" aria-hidden="true">M</div>
         <div class="info">
           <span class="city-line"><span class="city-name">Marília</span><span class="date">19/08</span></span>
         </div>
@@ -163,6 +169,7 @@
       </a>
 
       <a class="city-card" href="/londrina/">
+        <div class="thumb thumb-placeholder" aria-hidden="true">L</div>
         <div class="info">
           <span class="city-line"><span class="city-name">Londrina</span><span class="date">20/08</span></span>
         </div>
