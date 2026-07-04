@@ -7,16 +7,18 @@
   <script>
 
     /* ===== Lazy-load dos vídeos de depoimento (carrega no clique) ===== */
-    document.querySelectorAll('.vt-item[data-yt]').forEach(function (it) {
-      it.addEventListener('click', function () {
-        var ifr = document.createElement('iframe');
-        ifr.src = 'https://www.youtube.com/embed/' + it.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-        ifr.title = 'Depoimento';
-        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        ifr.allowFullscreen = true;
-        it.innerHTML = '';
-        it.appendChild(ifr);
-      }, { once: true });
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.vt-item[data-yt]').forEach(function (it) {
+        it.addEventListener('click', function () {
+          var ifr = document.createElement('iframe');
+          ifr.src = 'https://www.youtube.com/embed/' + it.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+          ifr.title = 'Depoimento';
+          ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          ifr.allowFullscreen = true;
+          it.innerHTML = '';
+          it.appendChild(ifr);
+        }, { once: true });
+      });
     });
 
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
