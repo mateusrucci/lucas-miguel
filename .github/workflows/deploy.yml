@@ -32,11 +32,12 @@ jobs:
           cp Sites/cidades-bio.html "$RELEASE/index.html"
 
           for city in americana aracatuba campinas indaiatuba; do
-            mkdir -p "$RELEASE/$city" "$RELEASE/$city/obg" "$RELEASE/quiz/$city"
-            rsync -a "Sites/cidades/$city/"       "$RELEASE/$city/"
-            rsync -a "Sites/cidades-obg/$city/"   "$RELEASE/$city/obg/"
+            mkdir -p "$RELEASE/$city" "$RELEASE/$city/obg" "$RELEASE/quiz/$city" "$RELEASE/$city-curto"
+            rsync -a "Sites/cidades/$city/"           "$RELEASE/$city/"
+            rsync -a "Sites/cidades-obg/$city/"       "$RELEASE/$city/obg/"
             cp     "Sites/cidades-quiz-quizzes/$city.html" "$RELEASE/quiz/$city/index.html"
-            rsync -a "Sites/cidades-quiz/$city/"  "$RELEASE/quiz/$city/"
+            rsync -a "Sites/cidades-quiz/$city/"      "$RELEASE/quiz/$city/"
+            rsync -a "Sites/cidades-variacao/$city/"  "$RELEASE/$city-curto/"
           done
 
           perl -0pi -e '
@@ -87,7 +88,7 @@ jobs:
         run: |
           BASE=https://lp.liberdadeoperacional.com.br
           RES=lp.liberdadeoperacional.com.br:443:${{ secrets.SSH_HOST }}
-          for path in "/" "/indaiatuba/" "/campinas/" "/quiz/campinas/vendas/" "/quiz/indaiatuba/gestao/oferta/" "/aracatuba/obg/"; do
+          for path in "/" "/indaiatuba/" "/campinas/" "/quiz/campinas/vendas/" "/quiz/indaiatuba/gestao/oferta/" "/aracatuba/obg/" "/campinas-curto/" "/americana-curto/" "/indaiatuba-curto/" "/aracatuba-curto/"; do
             code=$(curl -sk -o /dev/null -w '%{http_code}' -m 25 --resolve "$RES" "$BASE$path")
             echo "  GET $path -> $code"
             [ "$code" = "200" ] || exit 1
