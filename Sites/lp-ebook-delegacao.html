@@ -3,6 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Meta Pixel - PageView preciso (navegador + CAPI deduplicados pelo mesmo event_id) -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    (function(){
+      var pvid = 'pv.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
+      fbq('init', '759367142080644');
+      fbq('track', 'PageView', {}, { eventID: pvid });
+      try { fetch('/pageview.php', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'event_id=' + encodeURIComponent(pvid) + '&url=' + encodeURIComponent(location.href) }); } catch (e) {}
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=759367142080644&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
   <title>Ebook Gratuito — A Arte de Delegar | Lucas Miguel</title>
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -692,7 +704,7 @@
       <div class="form-card">
         <h2 class="form-card-title">Baixe agora — e gratuito</h2>
         <p class="form-card-sub">Preencha seus dados e receba o ebook <strong>"A Arte de Delegar"</strong> direto no seu email.</p>
-        <form>
+        <form id="lead-form">
           <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
@@ -734,6 +746,16 @@
               </label>
             </div>
           </div>
+          <input type="hidden" name="evento" value="campinas">
+          <input type="hidden" name="cidade" value="Ebook Delegacao">
+          <input type="hidden" name="dor" value="ebook-delegacao">
+          <input type="hidden" name="utm_source"   id="f_utm_source">
+          <input type="hidden" name="utm_campaign" id="f_utm_campaign">
+          <input type="hidden" name="utm_medium"   id="f_utm_medium">
+          <input type="hidden" name="utm_content"  id="f_utm_content">
+          <input type="hidden" name="utm_term"     id="f_utm_term">
+          <input type="hidden" name="gclid"        id="f_gclid">
+          <input type="hidden" name="fbclid"       id="f_fbclid">
           <button type="submit" class="btn-submit">QUERO MEU EBOOK GRATUITO</button>
           <p class="form-disclaimer">
             <svg viewBox="0 0 24 24"><path d="M12 1C8.676 1 6 3.676 6 7v2H4v14h16V9h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v2H8V7c0-2.276 1.724-4 4-4z"/></svg>
@@ -911,6 +933,46 @@
       <p>Liberdade Operacional &copy; 2026 — Todos os direitos reservados.<br>Este material e de uso exclusivo e nao pode ser reproduzido sem autorizacao.</p>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const form = document.getElementById('lead-form');
+      if (!form) return;
+
+      const params = new URLSearchParams(window.location.search);
+      ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach(function (k) {
+        const el = document.getElementById('f_' + k);
+        if (el) el.value = params.get(k) || '';
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'ENVIANDO...';
+
+        const fd = new FormData(form);
+        const leadEventId = 'lead.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
+        fd.append('lead_event_id', leadEventId);
+
+        fetch('/submit.php', { method: 'POST', body: fd })
+          .then(function (r) { return r.json().then(function (d) { return { status: r.status, d: d }; }); })
+          .then(function (res) {
+            if (res.status >= 200 && res.status < 300 && res.d && res.d.ok) {
+              try { if (window.fbq) fbq('track', 'Lead', { content_name: 'Ebook Delegacao' }, { eventID: leadEventId }); } catch (e) {}
+              window.location.href = '/ebook-a-arte-de-delegar.html' + (window.location.search || '');
+            } else {
+              throw new Error('fail');
+            }
+          })
+          .catch(function () {
+            btn.disabled = false;
+            btn.textContent = 'QUERO MEU EBOOK GRATUITO';
+            alert('Não foi possível enviar agora. Confira os dados e tente novamente.');
+          });
+      });
+    })();
+  </script>
 
 </body>
 </html>

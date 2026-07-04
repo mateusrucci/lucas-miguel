@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Meta Pixel — PageView preciso (navegador + CAPI deduplicados pelo mesmo event_id) -->
   <script>
+
+    /* ===== Lazy-load dos vídeos de depoimento (carrega no clique) ===== */
+    document.querySelectorAll('.vt-item[data-yt]').forEach(function (it) {
+      it.addEventListener('click', function () {
+        var ifr = document.createElement('iframe');
+        ifr.src = 'https://www.youtube.com/embed/' + it.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        ifr.title = 'Depoimento';
+        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen = true;
+        it.innerHTML = '';
+        it.appendChild(ifr);
+      }, { once: true });
+    });
+
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
     (function(){
       var pvid = 'pv.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
@@ -19,9 +33,8 @@
   <link rel="icon" href="/assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://i.ytimg.com">
   <link rel="preconnect" href="https://www.youtube.com">
-  <link rel="preconnect" href="https://scripts.converteai.net">
+  <link rel="preconnect" href="https://i.ytimg.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -193,31 +206,6 @@
       color: rgba(255,255,255,0.55);
       max-width: 560px; margin-bottom: 40px;
     }
-
-    /* ── VIDEO ──────────────────────────────────── */
-    .video-section {
-      width: 100%; max-width: 360px; margin-bottom: 40px;
-    }
-    .video-wrapper {
-      position: relative; width: 100%; aspect-ratio: 9/16;
-      border-radius: 16px; overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      border: 1px solid rgba(238,216,162,0.12);
-      background: #111;
-    }
-    .video-wrapper iframe,
-    .video-wrapper .vid-cover {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
-    }
-    .video-wrapper .vid-cover { object-fit: cover; }
-    .vid-play {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      width: 70px; height: 70px; border-radius: 50%; border: 0; cursor: pointer;
-      background: rgba(238,216,162,0.94); display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 26px rgba(0,0,0,0.55); transition: transform 0.15s;
-    }
-    .video-wrapper:hover .vid-play { transform: translate(-50%,-50%) scale(1.07); }
-    .vid-play svg { width: 27px; height: 27px; fill: #0F0F0F; margin-left: 4px; }
 
     .hero-cta-note {
       margin-top: 14px; font-size: 13px;
@@ -629,6 +617,19 @@
     .form-success { text-align: center; padding: 16px 0; }
     .form-success h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
     .form-success p { font-size: 14px; color: #666; line-height: 1.55; }
+    /* ── CENTRALIZAÇÃO CONSISTENTE (ajuste) ───── */
+    .section > .container { text-align: center; }
+    .section-sub { margin-left: auto; margin-right: auto; }
+    .authority-name, .authority-role { text-align: center; }
+    .authority-stats { justify-content: center; }
+    .callout,
+    .authority-text,
+    .guarantee-text,
+    .problem-list li,
+    .check-list li,
+    .offer-list li,
+    .value-item,
+    .pricing-items li { text-align: left; }
   </style>
 </head>
 <body>
@@ -656,18 +657,8 @@
       </h1>
 
       <p class="hero-sub">
-        Se tudo para quando você para, a empresa depende demais de você. Dá pra mudar isso — e começa no dia 22 de Julho. Aperte o play e assista.
+        Se tudo para quando você para, a empresa depende demais de você. Dá pra mudar isso — e começa no dia 22 de Julho.
       </p>
-
-      <!-- VIDEO (ConverteAI / SmartPlayer) -->
-      <div class="video-section">
-        <script type="text/javascript">var s=document.createElement("script");s.src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js",s.async=!0,document.head.appendChild(s);</script>
-        <div id="ifr_6a3edf2b8db7a1886390ce6a_wrapper" style="margin:0 auto;width:100%;max-width:340px;">
-          <div style="position:relative;padding:177.77777777777777% 0 0 0;border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.55);" id="ifr_6a3edf2b8db7a1886390ce6a_aspect">
-            <iframe frameborder="0" allowfullscreen src="about:blank" id="ifr_6a3edf2b8db7a1886390ce6a" style="position:absolute;top:0;left:0;width:100%;height:100%;" referrerpolicy="origin" onload="this.onload=null,this.src='https://scripts.converteai.net/a06ee858-267a-4250-93f9-23084cf38bc6/players/6a3edf2b8db7a1886390ce6a/v4/embed.html'+(location.search||'?')+'&vl='+encodeURIComponent(location.href)"></iframe>
-          </div>
-        </div>
-      </div>
 
       <a href="#cadastro" class="btn-green">
         QUERO MINHA VAGA →
@@ -676,6 +667,7 @@
 
     </div>
   </section>
+
 
   <!-- ════════════════════ DEPOIMENTOS ════════════════════ -->
   <section class="section section-dark">
@@ -957,18 +949,6 @@
   </div>
 
   <script>
-    /* ===== Lazy-load dos vídeos de depoimento (carrega no clique) ===== */
-    document.querySelectorAll('.vt-item[data-yt]').forEach(function (it) {
-      it.addEventListener('click', function () {
-        var ifr = document.createElement('iframe');
-        ifr.src = 'https://www.youtube.com/embed/' + it.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-        ifr.title = 'Depoimento';
-        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        ifr.allowFullscreen = true;
-        it.innerHTML = '';
-        it.appendChild(ifr);
-      }, { once: true });
-    });
 
     /* ===== Popup open/close ===== */
     const overlay = document.getElementById('popup');
@@ -999,11 +979,15 @@
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'ENVIANDO...';
-      fetch('/submit.php', { method: 'POST', body: new FormData(form) })
+      const fd = new FormData(form);
+      const leadEventId = 'lead.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
+      fd.append('lead_event_id', leadEventId);
+      fetch('/submit.php', { method: 'POST', body: fd })
         .then(function (r) { return r.json().then(function (d) { return { status: r.status, d: d }; }); })
         .then(function (res) {
           if (res.status >= 200 && res.status < 300 && res.d && res.d.ok) {
             var ev = (form.evento && form.evento.value) ? form.evento.value : '';
+            try { if (window.fbq) fbq('track', 'Lead', { content_name: ev || 'Lead' }, { eventID: leadEventId }); } catch (e) {}
             window.location.href = '/' + ev + '/obg/' + (window.location.search || '');
           } else {
             throw new Error('fail');

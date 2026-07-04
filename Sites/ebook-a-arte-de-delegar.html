@@ -3,6 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Meta Pixel - PageView preciso (navegador + CAPI deduplicados pelo mesmo event_id) -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    (function(){
+      var pvid = 'pv.' + Date.now() + '.' + Math.floor(Math.random() * 1e9);
+      fbq('init', '759367142080644');
+      fbq('track', 'PageView', {}, { eventID: pvid });
+      try { fetch('/pageview.php', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'event_id=' + encodeURIComponent(pvid) + '&url=' + encodeURIComponent(location.href) }); } catch (e) {}
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=759367142080644&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
   <title>A Arte de Delegar — Lucas Miguel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1234,14 +1246,14 @@
     <div class="cta-banner">
       <h2>Quer ir mais <span>fundo?</span></h2>
       <p>No evento presencial Liberdade Operacional, voce aplica esse metodo ao vivo, com acompanhamento direto, networking e cases reais.</p>
-      <a href="https://www.liberdadeoperacional.com.br/campinas-vs" class="cta-link">CONHECER O EVENTO PRESENCIAL</a>
+      <a href="https://lp.liberdadeoperacional.com.br/campinas/" class="cta-link">CONHECER O EVENTO PRESENCIAL</a>
     </div>
   </div>
 
   <!-- ==================== CONTRACAPA ==================== -->
   <section class="cover" style="min-height:50vh; padding:60px 64px;">
     <img class="cover-logo" src="https://files.greatpages.com.br/arquivos/paginas_editor/422504-daa2749ee3d018920dc536e209f40054.svg" alt="Liberdade Operacional" style="margin-bottom:24px;">
-    <p class="cover-brand" style="font-size:14px; color:rgba(255,255,255,0.5);">liberdadeoperacional.com.br</p>
+    <p class="cover-brand" style="font-size:14px; color:rgba(255,255,255,0.5);">lp.liberdadeoperacional.com.br</p>
     <div class="cover-divider" style="margin:20px auto;"></div>
     <p class="cover-brand">Material exclusivo. Todos os direitos reservados.<br>Proibida a reproducao sem autorizacao.</p>
   </section>

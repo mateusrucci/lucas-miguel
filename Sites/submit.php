@@ -30,7 +30,7 @@ $CONFIG = [
     ],
 ];
 
-// ===== Meta Conversions API (server-side) — domínio lucasmiguell =====
+// ===== Meta Conversions API (server-side) — domínio lp.liberdadeoperacional.com.br =====
 const FB_PIXEL_ID     = '759367142080644';
 const FB_ACCESS_TOKEN = 'EAAJJHBDjLPMBR6QziVtpAZBNgWLLLWVPZBVsheT3MHQTYxC5Nos9ZC2AKskavTsC4U9CIJfZC0eLaBcwVuKd99bAjsTLhaa7ULzkLa0Jh07nCZCe4Hh32xR3Bh4qWBMjoMBQqtJ2tyMr0tKUWVYHcZCtdjpDQQqs8AlmQrZCEGwckq8XYVQdmHrcyZARv3ZAagkbIwAZDZD';
 const FB_API_VERSION  = 'v21.0';
@@ -54,6 +54,7 @@ function v($k) { return isset($_POST[$k]) ? trim((string) $_POST[$k]) : ''; }
 
 $payload = [
     'Nome'          => v('nome'),
+    'Email'         => v('email'),
     'WhatsApp'      => v('whatsapp'),
     'Cidade'        => v('cidade'),
     'Colaboradores' => v('colaboradores'),
@@ -94,6 +95,7 @@ function meta_event_body($evento, $payload) {
     $ln    = (count($parts) > 1) ? end($parts) : '';
 
     $ud = [];
+    if (!empty($payload['Email']))     { $ud['em'] = [$h($payload['Email'])]; }
     if ($digits !== '')            { $ud['ph'] = [hash('sha256', $digits)]; }
     if ($fn !== '')                { $ud['fn'] = [$h($fn)]; }
     if ($ln !== '')                { $ud['ln'] = [$h($ln)]; }
@@ -103,11 +105,15 @@ function meta_event_body($evento, $payload) {
     if ($ip !== '') { $ud['client_ip_address'] = $ip; }
     if (!empty($_SERVER['HTTP_USER_AGENT'])) { $ud['client_user_agent'] = $_SERVER['HTTP_USER_AGENT']; }
 
+    $eventId = v('lead_event_id');
+    if ($eventId === '') { $eventId = v('event_id'); }
+    if ($eventId === '') { $eventId = 'lead.' . $evento . '.' . bin2hex(random_bytes(6)); }
+
     $event = [
         'event_name'    => 'Lead',
         'event_time'    => time(),
         'action_source' => 'website',
-        'event_id'      => 'lead.' . $evento . '.' . bin2hex(random_bytes(6)),
+        'event_id'      => substr($eventId, 0, 128),
         'user_data'     => $ud,
         'custom_data'   => [
             'content_name' => ucfirst($evento),

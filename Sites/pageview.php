@@ -65,7 +65,7 @@ $event = [
     'event_time'       => time(),
     'event_id'         => $eventId,                 // dedup com o pixel do navegador
     'action_source'    => 'website',
-    'event_source_url' => $url !== '' ? $url : ('https://' . ($_SERVER['HTTP_HOST'] ?? 'lucasmiguell.com.br')),
+    'event_source_url' => $url !== '' ? $url : ('https://' . ($_SERVER['HTTP_HOST'] ?? 'lp.liberdadeoperacional.com.br')),
     'user_data'        => $user,
 ];
 
