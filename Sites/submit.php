@@ -28,6 +28,15 @@ $CONFIG = [
         'apps' => 'https://script.google.com/macros/s/AKfycbyEeM6tHaQMmjrzxCCWur6brWv2eQyXr-t0hDqRNEZAfwZod-zuTRvGGN_oOxC3834VjA/exec',
         'make' => 'https://hook.us2.make.com/0886ybbbjrrjuyc5c1iy2f2xctnj1iig?evento=Americana&Data=21-07-2026',
     ],
+    // TODO: substituir URLs de Apps Script + Make quando disponíveis para Marília e Londrina.
+    'marilia' => [
+        'apps' => 'https://example.com/todo-marilia-apps-script',
+        'make' => 'https://example.com/todo-marilia-make?evento=Marilia&Data=19-08-2026',
+    ],
+    'londrina' => [
+        'apps' => 'https://example.com/todo-londrina-apps-script',
+        'make' => 'https://example.com/todo-londrina-make?evento=Londrina&Data=20-08-2026',
+    ],
 ];
 
 // ===== Meta Conversions API (server-side) — domínio lp.liberdadeoperacional.com.br =====
