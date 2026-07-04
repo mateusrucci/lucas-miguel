@@ -14,12 +14,42 @@ concurrency:
 
 jobs:
   deploy:
-    name: Rsync Sites/ to VPS
+    name: Build release + rsync para /opt/lucasmiguel/html
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Build release (rotas limpas /{cidade}/, /quiz/, /{cidade}/obg/)
+        run: |
+          set -euo pipefail
+          RELEASE=./_release
+          rm -rf "$RELEASE"
+          mkdir -p "$RELEASE"
+
+          rsync -a Sites/ "$RELEASE"/
+          cp Sites/cidades-bio.html "$RELEASE/index.html"
+
+          for city in americana aracatuba campinas indaiatuba; do
+            mkdir -p "$RELEASE/$city" "$RELEASE/$city/obg" "$RELEASE/quiz/$city"
+            rsync -a "Sites/cidades/$city/"       "$RELEASE/$city/"
+            rsync -a "Sites/cidades-obg/$city/"   "$RELEASE/$city/obg/"
+            cp     "Sites/cidades-quiz-quizzes/$city.html" "$RELEASE/quiz/$city/index.html"
+            rsync -a "Sites/cidades-quiz/$city/"  "$RELEASE/quiz/$city/"
+          done
+
+          perl -0pi -e '
+            s/lucasmiguell\.com\.br/lp.liberdadeoperacional.com.br/g;
+            s#https://www\.liberdadeoperacional\.com\.br/campinas-vs#https://lp.liberdadeoperacional.com.br/campinas/#g;
+            s#(?<!lp\.)liberdadeoperacional\.com\.br#lp.liberdadeoperacional.com.br#g;
+          ' \
+            "$RELEASE/pageview.php" \
+            "$RELEASE/submit.php" \
+            "$RELEASE/ebook-a-arte-de-delegar.html" \
+            "$RELEASE/index.html"
+
+          echo "release montado: $(find $RELEASE -type f | wc -l) arquivos"
 
       - name: Setup SSH key
         run: |
@@ -28,24 +58,43 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p "${{ secrets.SSH_PORT }}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Rsync Sites/ to VPS
+      - name: Backup html/ atual na VPS
+        run: |
+          TS=$(date -u +%Y%m%d-%H%M%S)
+          ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} \
+              -o StrictHostKeyChecking=accept-new \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "mkdir -p /opt/lucasmiguel/backups && cp -a ${{ secrets.DEPLOY_PATH }} /opt/lucasmiguel/backups/html-$TS && ls -1t /opt/lucasmiguel/backups | tail -n +6 | xargs -r -I{} rm -rf /opt/lucasmiguel/backups/{}"
+
+      - name: Rsync release/ para VPS
         run: |
           rsync -avz --delete \
             --exclude '.DS_Store' \
             --exclude '*.swp' \
             -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=accept-new" \
-            ./Sites/ \
+            ./_release/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/
 
-      - name: Fix permissions and reload nginx
+      - name: Ajustar permissões (nginx serve do bind mount, sem restart)
         run: |
           ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} \
             -o StrictHostKeyChecking=accept-new \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "chown -R www-data:www-data ${{ secrets.DEPLOY_PATH }} && \
-             find ${{ secrets.DEPLOY_PATH }} -type d -exec chmod 755 {} \; && \
-             find ${{ secrets.DEPLOY_PATH }} -type f -exec chmod 644 {} \; && \
-             nginx -t && systemctl reload nginx"
+            "find ${{ secrets.DEPLOY_PATH }} -type d -exec chmod 755 {} + && \
+             find ${{ secrets.DEPLOY_PATH }} -type f -exec chmod 644 {} +"
+
+      - name: Smoke test HTTP
+        run: |
+          BASE=https://lp.liberdadeoperacional.com.br
+          RES=lp.liberdadeoperacional.com.br:443:${{ secrets.SSH_HOST }}
+          for path in "/" "/indaiatuba/" "/campinas/" "/quiz/campinas/vendas/" "/quiz/indaiatuba/gestao/oferta/" "/aracatuba/obg/"; do
+            code=$(curl -sk -o /dev/null -w '%{http_code}' -m 25 --resolve "$RES" "$BASE$path")
+            echo "  GET $path -> $code"
+            [ "$code" = "200" ] || exit 1
+          done
+          code=$(curl -sk -o /dev/null -w '%{http_code}' -m 25 --resolve "$RES" -X POST "$BASE/submit.php" -d 'evento=x')
+          echo "  POST /submit.php (evento=x) -> $code"
+          [ "$code" = "400" ] || exit 1
 
       - name: Cleanup
         if: always()
